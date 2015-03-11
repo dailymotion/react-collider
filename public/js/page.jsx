@@ -94,18 +94,6 @@ var App = React.createClass({
     }
 })
 
-// Client side
-var Content = React.createClass({
-  render: function () {
-    return (
-      <div>
-        <Header/>
-            <RouteHandler/>
-        <Footer/>
-      </div>
-    );
-  }
-});
 
 if (typeof module !== 'undefined') {
     // server
@@ -119,7 +107,7 @@ else {
     //client
 
     var routes = (
-        <Route handler={Content} path="{path}">
+        <Route handler={Body} path="{path}">
           <DefaultRoute handler={Home} />
           <Route path="/" name="home" handler={Home} />
           <Route path="/videos" name="videos" handler={Videos} />

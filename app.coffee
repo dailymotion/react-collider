@@ -8,11 +8,12 @@ DefaultRoute = require('react-router').DefaultRoute
 app     = express()
 
 App    = require './public/js/page.jsx'
-Video  = require './public/video/video-item/video.jsx'
-Videos = require './public/video/video-list/videos.jsx'
-Player = require './public/video/player/player.jsx'
+Body = require './public/layout/body/body.jsx'
 Header = require './public/layout/header/header.jsx'
 Footer = require './public/layout/footer/footer.jsx'
+Videos = require './public/video/video-list/videos.jsx'
+Video  = require './public/video/video-item/video.jsx'
+Player = require './public/video/player/player.jsx'
 
 app.use express.static(path.join(__dirname, 'public'))
 app.set 'view engine', 'ejs'

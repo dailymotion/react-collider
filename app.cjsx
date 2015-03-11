@@ -13,16 +13,16 @@ app.use express.static(path.join(__dirname, 'public'))
 app.set 'view engine', 'ejs'
 
 routes = (
-    React.createElement(Route, {"handler": (App.Body), "path": "{path}"},
-        React.createElement(Route, {"path": "/", "name": "home", "handler": (App.Home)}),
-        React.createElement(Route, {"path": "/videos", "name": "videos", "handler": (App.Videos)}),
-        React.createElement(Route, {"path": "/video", "name": "video", "handler": (App.Video)})
-    )
+    <Route handler={App.Body} path="{path}">
+        <Route path="/" name="home" handler={App.Home} />
+        <Route path="/videos" name="videos" handler={App.Videos} />
+        <Route path="/video" name="video" handler={App.Video} />
+    </Route>
 )
 
 app.get '*', (req, res) ->
     Router.run routes, req.url, (Handler) ->
-        content = React.renderToString React.createElement(Handler, null)
+        content = React.renderToString <Handler />
         res.render 'index', {content: content}
 
 module.exports = app

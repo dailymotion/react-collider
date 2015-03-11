@@ -1,8 +1,20 @@
- var Router = ReactRouter;
- var Route = ReactRouter.Route;
- var DefaultRoute = ReactRouter.DefaultRoute;
- var RouteHandler = ReactRouter.RouteHandler;
 /** @jsx React.DOM */
+
+if (typeof module !== 'undefined') {
+    var React = require('react');
+    var Router = require('react-router');
+    var Route = require('react-router').Route;
+    var Link = Router.Link;
+    var DefaultRoute = require('react-router').DefaultRoute;
+    var RouteHandler = require('react-router').RouteHandler;
+}
+else {
+    var Router = ReactRouter;
+    var Route = ReactRouter.Route;
+    var Link = Router.Link;
+    var DefaultRoute = ReactRouter.DefaultRoute;
+    var RouteHandler = ReactRouter.RouteHandler;
+}
 
 var Meta = React.createClass({
     render: function() {
@@ -11,7 +23,7 @@ var Meta = React.createClass({
         );
     }
 });
-var Link = React.createClass({
+var LinkHeader = React.createClass({
     render: function() {
         return(
             <link {...this.props}/>
@@ -64,7 +76,7 @@ var Head = React.createClass({
             return <Meta {...data} />;
         });
         var links = this.state.links.map(function (data) {
-            return <Link {...data} />;
+            return <LinkHeader {...data} />;
         });
 
         return(
@@ -93,8 +105,8 @@ var Home = React.createClass({
     return (
       <div className="content">
         <h1>home</h1>
-        <a href="#/videos">videos</a> <a href="#/video">video</a>
-        <RouteHandler/>
+        <Link to="video">Video</Link>
+        <Link to="videos">Videos</Link>
       </div>
     );
   }
@@ -114,8 +126,7 @@ var Videos = React.createClass({
     return (
         <div className="content">
           <h1>Videos</h1>
-          <a href="#/video">video</a> <a href="#/">home</a>
-          <RouteHandler/>
+          <Link to="video">video</Link> <Link to="home">Home</Link>
         </div>
     );
   }
@@ -126,26 +137,53 @@ var Video = React.createClass({
         <div className="content">
           <h1>Video</h1>
           <Player video="xzcrhd"/>
-          <a href="#/videos">videos</a> <a href="#/">home</a>
-          <RouteHandler/>
+          <Link to="videos">videos</Link> <Link to="home">Home</Link>
         </div>
     );
   }
 });
 
-var head = React.renderComponent(
-  <Head/>,
-    document.getElementById('html')
-);
+var Body = React.createClass({
+    render: function() {
+        return (
+            <html id="html">
+                <body id="body">
+                    <App />
+                    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react-with-addons.js"></script>
+                    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.12.2/JSXTransformer.js"></script>
+                    <script src="/bower_components/react-router/build/global/ReactRouter.js"></script>
+                    <script type="text/jsx" src="/js/page.jsx"></script>
+                </body>
+            </html>
+        )
+    }
+})
 
-var routes = (
-  <Route handler={App} path="/">
-    <DefaultRoute handler={Home} />
-    <Route name="videos" handler={Videos} />
-    <Route name="video" handler={Video} />
-  </Route>
-);
+if (typeof module !== 'undefined') {
+    module.exports = {
+        Body: Body,
+        App: App,
+        Home: Home,
+        Videos: Videos,
+        Video: Video
+    };
+}
+else {
+    var head = React.renderComponent(
+        <Head/>,
+        document.getElementById('html')
+    );
 
-Router.run(routes, function (Handler) {
-  React.render(<Handler/>, document.body);
-});
+    var routes = (
+        <Route handler={App} path="{path}">
+          <DefaultRoute handler={Home} />
+          <Route path="/" name="home" handler={Home} />
+          <Route path="/videos" name="videos" handler={Videos} />
+          <Route path="/video" name="video" handler={Video} />
+        </Route>
+    );
+
+    Router.run(routes, Router.HistoryLocation, function (Handler) {
+        React.render(<Handler />, document.body);
+    });
+}

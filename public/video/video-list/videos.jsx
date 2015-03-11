@@ -7,18 +7,19 @@ var Videos = React.createClass({
         if (typeof window !== 'undefined') {
             var head = React.render(<Head />, document.querySelector('#html')),
                 links = baseLinks.concat([{rel: 'stylesheet', href: '/video/video-list/videos.css'}])
-            head.setState({title: 'Video', links: links})
+            head.setState({title: 'Videos', links: links})
         }
     },
   render: function () {
+    var res = '';
+    for(i=0;i<100;i++)
+    {
+      res += '<img src="http://lorempixel.com/200/100/?' + i + '"/>';
+    }
     return (
         <div className="content">
           <h1>Videos</h1>
-          <img src="http://lorempixel.com/200/100/"/>
-          <img src="http://lorempixel.com/200/100/"/>
-          <img src="http://lorempixel.com/200/100/"/>
-          <img src="http://lorempixel.com/200/100/"/>
-          <Link to="video">video</Link> <Link to="home">Home</Link>
+          <div className="commentBox" dangerouslySetInnerHTML={{ __html: res }}/>
         </div>
     );
   }

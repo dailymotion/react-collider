@@ -11,6 +11,8 @@ App    = require './public/js/page.jsx'
 Video  = require './public/video/video-item/video.jsx'
 Videos = require './public/video/video-list/videos.jsx'
 Player = require './public/video/player/player.jsx'
+Header = require './public/layout/header/header.jsx'
+Footer = require './public/layout/footer/footer.jsx'
 
 app.use express.static(path.join(__dirname, 'public'))
 app.set 'view engine', 'ejs'

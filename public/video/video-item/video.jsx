@@ -15,7 +15,6 @@ var Video = React.createClass({
         <div className="content">
           <h1>Video</h1>
           <Player video="xzcrhd"/>
-          <Link to="videos">videos</Link> <Link to="home">Home</Link>
         </div>
     );
   }

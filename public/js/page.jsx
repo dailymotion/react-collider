@@ -31,25 +31,6 @@ var LinkHeader = React.createClass({
     }
 });
 
-var Header = React.createClass({
-    render: function() {
-        return(
-            <header>
-                <img height="60px" src="http://static1-preprod.dmcdn.net/images/header/logo_dailymotion@2x.png.v41c4e908eb6427162"/>
-            </header>
-        );
-    }
-});
-
-var Footer = React.createClass({
-    render: function() {
-        return(
-            <footer>
-            </footer>
-        );
-    }
-});
-
 var baseLinks =
 [
     {rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'},
@@ -97,8 +78,6 @@ var Home = React.createClass({
       <div className="content">
         <h1>home</h1>
         <img src="http://lorempixel.com/600/400/"/>
-        <Link to="video">Video</Link>
-        <Link to="videos">Videos</Link>
       </div>
     );
   }

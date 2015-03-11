@@ -1,0 +1,21 @@
+{
+  "name": "react-collider",
+  "version": "1.0.0",
+  "description": "Tentative to reach the Graal: isomorphic react done the good way",
+  "main": "app.coffee",
+  "scripts": {
+    "start": "coffee bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Youpinadi/react-collider.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Youpinadi/react-collider/issues"
+  },
+  "homepage": "https://github.com/Youpinadi/react-collider",
+  "dependencies": {
+    "express": "^4.12.2"
+  }
+}

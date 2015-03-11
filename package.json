@@ -4,7 +4,7 @@
   "description": "Tentative to reach the Graal: isomorphic react done the good way",
   "main": "app.coffee",
   "scripts": {
-    "start": "./node_modules/.bin/cjsx-transform app.cjsx > app.coffee && ./node_modules/.bin/coffee bin/www"
+    "start": "./node_modules/.bin/coffee bin/www"
   },
   "repository": {
     "type": "git",

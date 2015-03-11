@@ -7,7 +7,10 @@ Route   = require('react-router').Route
 DefaultRoute = require('react-router').DefaultRoute
 app     = express()
 
-App     = require './public/js/page.jsx'
+App    = require './public/js/page.jsx'
+Video  = require './public/video/video-item/video.jsx'
+Videos = require './public/video/video-list/videos.jsx'
+Player = require './public/video/player/player.jsx'
 
 app.use express.static(path.join(__dirname, 'public'))
 app.set 'view engine', 'ejs'
@@ -17,8 +20,8 @@ routes = (
     React.createElement(Route, {"handler": (App.App), "path": "{path}"},
         React.createElement(DefaultRoute, {"handler": (App.Home)}),
         React.createElement(Route, {"path": "/", "name": "home", "handler": (App.Home)}),
-        React.createElement(Route, {"path": "/videos", "name": "videos", "handler": (App.Videos)}),
-        React.createElement(Route, {"path": "/video", "name": "video", "handler": (App.Video)})
+        React.createElement(Route, {"path": "/videos", "name": "videos", "handler": (Videos)}),
+        React.createElement(Route, {"path": "/video", "name": "video", "handler": (Video)})
     )
 )
 

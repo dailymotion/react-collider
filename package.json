@@ -4,7 +4,7 @@
   "description": "Tentative to reach the Graal: isomorphic react done the good way",
   "main": "app.coffee",
   "scripts": {
-    "start": "coffee bin/www"
+    "start": "./node_modules/.bin/coffee bin/www"
   },
   "repository": {
     "type": "git",
@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/Youpinadi/react-collider",
   "dependencies": {
+    "coffee-script": "^1.9.1",
     "express": "^4.12.2"
   }
 }

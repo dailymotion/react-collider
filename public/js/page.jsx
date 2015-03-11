@@ -72,34 +72,24 @@ var Head = React.createClass({
         };
     },
     render: function() {
+        var i = 0;
         var metas = this.state.metas.map(function (data) {
-            return <Meta {...data} />;
+            return <Meta key={i++} {...data} />;
         });
         var links = this.state.links.map(function (data) {
-            return <LinkHeader {...data} />;
+            return <LinkHeader key={i++} {...data} />;
         });
 
         return(
             <head>
-            <title>{this.state.title}</title>
-            {metas}
-            {links}
+                <title>{this.state.title}</title>
+                {metas}
+                {links}
             </head>
         );
     }
 });
 
-var App = React.createClass({
-  render: function () {
-    return (
-      <div>
-        <Header/>
-            <RouteHandler/>
-        <Footer/>
-      </div>
-    );
-  }
-});
 var Home = React.createClass({
   render: function () {
     return (
@@ -132,6 +122,13 @@ var Videos = React.createClass({
   }
 });
 var Video = React.createClass({
+    componentWillMount: function() {
+        if (typeof window !== 'undefined') {
+            var head = React.render(<Head />, document.querySelector('#html')),
+                links = head.state.links.concat([{rel: 'stylesheet', href: '/css/second.css'}])
+            head.setState({title: 'Video', links: links})
+        }
+    },
   render: function () {
     return (
         <div className="content">
@@ -143,39 +140,45 @@ var Video = React.createClass({
   }
 });
 
-var Body = React.createClass({
+// Server side
+var App = React.createClass({
     render: function() {
         return (
-            <html id="html">
-                <body id="body">
-                    <App />
-                    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react-with-addons.js"></script>
-                    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.12.2/JSXTransformer.js"></script>
-                    <script src="/bower_components/react-router/build/global/ReactRouter.js"></script>
-                    <script type="text/jsx" src="/js/page.jsx"></script>
-                </body>
-            </html>
+            <div>
+                <RouteHandler />
+            </div>
         )
     }
 })
 
+// Client side
+var Content = React.createClass({
+  render: function () {
+    return (
+      <div>
+        <Header/>
+            <RouteHandler/>
+        <Footer/>
+      </div>
+    );
+  }
+});
+
 if (typeof module !== 'undefined') {
+    // server
     module.exports = {
-        Body: Body,
         App: App,
+        Head: Head,
         Home: Home,
         Videos: Videos,
         Video: Video
     };
 }
 else {
-    var head = React.renderComponent(
-        <Head/>,
-        document.getElementById('html')
-    );
+    //client
 
     var routes = (
-        <Route handler={App} path="{path}">
+        <Route handler={Content} path="{path}">
           <DefaultRoute handler={Home} />
           <Route path="/" name="home" handler={Home} />
           <Route path="/videos" name="videos" handler={Videos} />
@@ -184,6 +187,6 @@ else {
     );
 
     Router.run(routes, Router.HistoryLocation, function (Handler) {
-        React.render(<Handler />, document.body);
+        React.render(<Handler />, document.querySelector('#body'));
     });
 }

@@ -1,5 +1,8 @@
 /** @jsx React.DOM */
 
+//var ExecutionEnvironment = require('react/lib/ExecutionEnvironment');
+
+
 if (typeof module !== 'undefined') {
     var React = require('react');
     var Router = require('react-router');

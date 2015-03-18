@@ -1,7 +1,0 @@
-{
-  "name": "react-collider",
-  "version": "1.0.0",
-  "dependencies": {
-    "react-router": "~0.12.4"
-  }
-}

@@ -2,10 +2,7 @@
   "name": "react-collider",
   "version": "1.0.0",
   "description": "Tentative to reach the Graal: isomorphic react done the good way",
-  "main": "app.coffee",
-  "scripts": {
-    "start": "./node_modules/.bin/coffee bin/www"
-  },
+  "main": "server.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Youpinadi/react-collider.git"
@@ -16,17 +13,20 @@
   },
   "homepage": "https://github.com/Youpinadi/react-collider",
   "dependencies": {
-    "coffee-react-transform": "^2.4.0",
-    "coffee-script": "^1.9.1",
+    "browserify": "^9.0.3",
     "ejs": "^2.3.1",
-    "express": "^4.12.2",
-    "fibers": "^1.0.5",
+    "express": "^4.12.3",
+    "gulp": "^3.8.11",
     "node-jsx": "^0.12.4",
-    "react": "^0.12.2",
-    "react-async": "^2.0.1",
-    "react-router": "^0.12.4"
+    "react": "0.12.x",
+    "react-router": "^0.12.4",
+    "reactify": "^1.1.0"
   },
   "devDependencies": {
-    "supervisor": "^0.6.0"
+    "gulp-sourcemaps": "^1.5.1",
+    "gulp-util": "^3.0.4",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^2.4.0"
   }
 }

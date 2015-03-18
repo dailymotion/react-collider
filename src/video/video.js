@@ -1,9 +1,12 @@
 var Video = React.createClass({
+    componentWillMount: function() {
+        var head = React.render(<Head />, document.querySelector('#html'))
+        head.setState({title: 'Video'})
+    },
     render: function() {
         return (
             <div>
                 <h1>Video</h1>
-                <Link to="home">Homepage</Link>
             </div>
         )
     }

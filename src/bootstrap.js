@@ -8,7 +8,15 @@ var Bootstrap = React.createClass({
     render: function() {
         return (
             <div>
-                <RouteHandler />
+                <Header />
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <RouteHandler />
+                        </div>
+                    </div>
+                </div>
+                <Footer />
             </div>
         )
     }

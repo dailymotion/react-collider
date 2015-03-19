@@ -21,7 +21,8 @@
     "node-jsx": "^0.12.4",
     "react": "0.12.x",
     "react-router": "^0.12.4",
-    "reactify": "^1.1.0"
+    "reactify": "^1.1.0",
+    "superagent": "^1.1.0"
   },
   "devDependencies": {
     "gulp-sourcemaps": "^1.5.1",

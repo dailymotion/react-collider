@@ -4,6 +4,9 @@ require('./deps')
 var RouteHandler = Router.RouteHandler
 
 var Bootstrap = React.createClass({
+    getData: function() {
+        return this.props.data || {}
+    },
     render: function() {
         return (
             <html id="html">
@@ -14,7 +17,7 @@ var Bootstrap = React.createClass({
                         <div className="container">
                             <div className="row">
                                 <div className="col-lg-12">
-                                    <RouteHandler />
+                                    <RouteHandler data={this.getData()} />
                                 </div>
                             </div>
                         </div>

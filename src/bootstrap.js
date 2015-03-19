@@ -1,5 +1,4 @@
 require('./deps')
-var routes = require('./routes')
 
 // App
 var RouteHandler = Router.RouteHandler
@@ -7,32 +6,41 @@ var RouteHandler = Router.RouteHandler
 var Bootstrap = React.createClass({
     render: function() {
         return (
-            <div>
-                <Header />
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12">
-                            <RouteHandler />
+            <html id="html">
+                <Head />
+                <body id="body">
+                    <div>
+                        <Header />
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-lg-12">
+                                    <RouteHandler />
+                                </div>
+                            </div>
                         </div>
+                        <Footer />
                     </div>
-                </div>
-                <Footer />
-            </div>
+                    <script src="/bundle.js"></script>
+                </body>
+            </html>
         )
     }
 })
 
-var args = [
-    Router.Route,
-    {"handler": Bootstrap, "path": "{path}"},
-    React.createElement(Router.DefaultRoute, {"handler": routes.defaultRoute})
-]
+// Require your pages
+var Route = require('react-router').Route,
+    DefaultRoute = require('react-router').DefaultRoute,
+    Home  = require('./home/home'),
+    Video = require('./video/video'),
 
-for (var routeIndex in routes.routes) {
-    var route = routes.routes[routeIndex]
-    args.push(React.createElement(Router.Route, {path: route.path, name: route.name, handler: route.handler}))
-}
+    routes = (
+        <Route handler={Bootstrap} path="/">
+            <DefaultRoute handler={Home} />
+            <Route name="home" handler={Home} />
+            <Route name="video" handler={Video} />
+        </Route>
+    )
 
-global.Routes = React.createElement.apply(null, args)
+global.Routes = routes
 
 module.exports = Bootstrap

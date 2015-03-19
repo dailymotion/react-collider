@@ -1,2 +1,4 @@
 node_modules
-public/bower_components
+npm-debug.log
+public/bundle.js
+public/bundle.js.map

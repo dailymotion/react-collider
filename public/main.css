@@ -22,6 +22,12 @@ header img
     margin-left: 20px;
 }
 
+header a
+{
+    margin-right:20px;
+    color: #FFF;
+}
+
 footer
 {
     width: 100%;

@@ -1,7 +1,9 @@
 var Video = React.createClass({
     componentWillMount: function() {
-        var head = React.render(<Head />, document.querySelector('#html'))
-        head.setState({title: 'Video'})
+        if (typeof document !== 'undefined') {
+            var head = React.render(<Head />, document.querySelector('#html'))
+            head.setState({title: 'Video'})
+        }
     },
     render: function() {
         return (

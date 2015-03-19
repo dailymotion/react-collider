@@ -1,7 +1,9 @@
 var Home = React.createClass({
     componentWillMount: function() {
-        var head = React.render(<Head />, document.querySelector('#html'))
-        head.setState({title: 'Homepage'})
+        if (typeof document !== 'undefined') {
+            var head = React.render(<Head />, document.querySelector('#html'))
+            head.setState({title: 'Homepage'})
+        }
     },
     render: function() {
         return (

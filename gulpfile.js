@@ -11,11 +11,11 @@ var gulp = require('gulp'),
 
 var bundler = watchify(browserify('./src/app.js', watchify.args))
 // add any other browserify options or transforms here
-bundler.transform('reactify');
+bundler.transform('reactify')
 
-gulp.task('default', bundle); // so you can run `gulp js` to build the file
-bundler.on('update', bundle); // on any dep update, runs the bundler
-bundler.on('log', gutil.log); // output build logs to terminal
+gulp.task('default', bundle)
+bundler.on('update', bundle) // on any dep update, runs the bundler
+bundler.on('log', gutil.log) // output build logs to terminal
 
 function bundle() {
   return bundler.bundle()
@@ -23,9 +23,8 @@ function bundle() {
     .on('error', gutil.log.bind(gutil, 'Browserify Error'))
     .pipe(source('bundle.js'))
     // optional, remove if you dont want sourcemaps
-      .pipe(buffer())
-      .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
-      .pipe(sourcemaps.write('./')) // writes .map file
-    //
-    .pipe(gulp.dest('./public'));
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
+    .pipe(sourcemaps.write('./')) // writes .map file
+    .pipe(gulp.dest('./public'))
 }

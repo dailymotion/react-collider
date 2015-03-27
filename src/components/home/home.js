@@ -1,6 +1,5 @@
-var request = require('superagent'),
-    VideoPreview = require('./../video/preview'),
-    Promise = require('bluebird')
+var VideoPreview = require('./../video/preview'),
+    provider = require('./../../lib/data-provider')
 
 var Home = React.createClass({
     statics: {
@@ -8,18 +7,7 @@ var Home = React.createClass({
             return 'home/home'
         },
         fetchData: function() {
-            return new Promise(function(resolve) {
-                if (typeof initialData !== 'undefined' && initialData !== null) {
-                    var data = initialData
-                    initialData = null
-                    resolve(data)
-                }
-                else {
-                    request.get('https://api.dailymotion.com/videos&list=what-to-watch&fields=title,thumbnail_240_url').end(function(err, data) {
-                        resolve(data.text)
-                    })
-                }
-            })
+            return provider('wtw-videos', 'https://api.dailymotion.com/videos&list=what-to-watch&fields=title,thumbnail_240_url')
         }
     },
     componentWillMount: function() {

@@ -9,17 +9,36 @@ var express = require('express'),
     bootstrap = require('./src/bootstrap')
 
 server.use(express.static(path.join(__dirname, 'public')))
-server.set('view engine', 'ejs')
+
+var returnResponse = function(res, Handler, data) {
+    data = typeof data === 'string' ? JSON.parse(data) : data
+    data = typeof data === 'object' ? data : null
+    var content = React.renderToString(React.createElement(Handler, {data: data})),
+        html = '<!DOCTYPE html>' + content
+    res.send(html)
+}
 
 server.get('*', function(req, res) {
-    Router.run(Routes, req.url, function(Handler) {
-        var Home = require('./src/home/home')
-        Home.fetchData().end(function(err, data) {
-            var content = React.renderToString(React.createElement(Handler, {data: data.text})),
-                head = React.renderToString(React.createElement(Head, null)),
-                html = '<!DOCTYPE html>' + content
-            res.send(html)
+    Router.run(Routes, req.url, function(Handler, state) {
+        var fetchToRun = null,
+            matchedHandler = null
+
+        state.routes.forEach(function(matchedRoute) {
+            if (typeof matchedRoute.handler.fetchData === 'function') {
+                matchedHandler = matchedRoute.handler.displayName
+                fetchToRun = require('./src/' + matchedRoute.handler.getModulePath()).fetchData
+            }
         })
+
+        if (typeof fetchToRun === 'function') {
+            console.log('Fetching data from ' + matchedHandler)
+            fetchToRun().then(function(data) {
+                returnResponse(res, Handler, data)
+            })
+        }
+        else {
+            returnResponse(res, Handler)
+        }
     })
 })
 

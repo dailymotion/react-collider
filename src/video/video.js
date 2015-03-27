@@ -1,4 +1,9 @@
 var Video = React.createClass({
+    statics: {
+        getModulePath: function() {
+            return 'video/video'
+        }
+    },
     componentWillMount: function() {
         // if (typeof document !== 'undefined') {
         //     var head = React.render(<Head />, document.querySelector('#html'))

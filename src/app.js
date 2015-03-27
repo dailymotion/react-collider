@@ -1,19 +1,30 @@
 var Bootstrap = require('./bootstrap'),
     Home = require('./home/home')
 
-var cb = function(err, data) {
-    Router.run(Routes, Router.HistoryLocation, function (Handler) {
-        window.test = React.renderToString(<Handler data={data} />)
-        React.render(<Handler data={data} />, document)
-    })
+var renderPage = function(Handler, data) {
+    data = typeof data === 'string' ? JSON.parse(data) : data
+    data = typeof data === 'object' ? data : null
+    React.render(<Handler data={data} />, document)
 }
 
-if (typeof initialData !== 'undefined') {
-    cb(null, initialData)
-    initialData = null
-}
-else {
-    Home.fetchData().end(function(err, data) {
-        cb(err, data.text)
+Router.run(Routes, Router.HistoryLocation, function(Handler, state) {
+    var fetchToRun = null,
+        matchedHandler = null
+
+    state.routes.forEach(function(matchedRoute) {
+        if (typeof matchedRoute.handler.fetchData === 'function') {
+            matchedHandler = matchedRoute.handler.displayName
+            fetchToRun = require('./' + matchedRoute.handler.getModulePath()).fetchData
+        }
     })
-}
+
+    if (typeof fetchToRun === 'function') {
+        console.log('Fetching data from ' + matchedHandler)
+        fetchToRun().then(function(data) {
+            renderPage(Handler, data)
+        })
+    }
+    else {
+        renderPage(Handler)
+    }
+})

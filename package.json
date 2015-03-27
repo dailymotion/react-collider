@@ -13,6 +13,7 @@
   },
   "homepage": "https://github.com/Youpinadi/react-collider",
   "dependencies": {
+    "bluebird": "^2.9.15",
     "browserify": "^9.0.3",
     "express": "^4.12.3",
     "fetch": "^0.3.6",

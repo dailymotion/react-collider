@@ -1,7 +1,11 @@
 var Footer = React.createClass({
     render: function() {
         return (
-            <footer>React Collider</footer>
+            <footer className="row">
+                <div className="col-sm-12">
+                    React Collider
+                </div>
+            </footer>
         )
     }
 })

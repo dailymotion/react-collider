@@ -1,5 +1,6 @@
-var Bootstrap = require('./bootstrap'),
-    Home = require('./home/home')
+require('./routing')
+
+var Home = require('./home/home')
 
 var renderPage = function(Handler, data) {
     data = typeof data === 'string' ? JSON.parse(data) : data
@@ -14,7 +15,7 @@ Router.run(Routes, Router.HistoryLocation, function(Handler, state) {
     state.routes.forEach(function(matchedRoute) {
         if (typeof matchedRoute.handler.fetchData === 'function') {
             matchedHandler = matchedRoute.handler.displayName
-            fetchToRun = require('./' + matchedRoute.handler.getModulePath()).fetchData
+            fetchToRun = require('./components/' + matchedRoute.handler.getModulePath()).fetchData
         }
     })
 

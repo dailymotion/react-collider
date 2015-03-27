@@ -5,8 +5,9 @@ require('node-jsx').install()
 var express = require('express'),
     path    = require('path'),
     server  = express(),
-    port    = process.env.PORT || 3000,
-    bootstrap = require('./src/bootstrap')
+    port    = process.env.PORT || 3000
+
+require('./src/routing')
 
 server.use(express.static(path.join(__dirname, 'public')))
 
@@ -26,7 +27,7 @@ server.get('*', function(req, res) {
         state.routes.forEach(function(matchedRoute) {
             if (typeof matchedRoute.handler.fetchData === 'function') {
                 matchedHandler = matchedRoute.handler.displayName
-                fetchToRun = require('./src/' + matchedRoute.handler.getModulePath()).fetchData
+                fetchToRun = require('./src/components/' + matchedRoute.handler.getModulePath()).fetchData
             }
         })
 

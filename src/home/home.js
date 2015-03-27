@@ -15,7 +15,7 @@ var Home = React.createClass({
                     resolve(data)
                 }
                 else {
-                    request.get('https://api.dailymotion.com/videos').end(function(err, data) {
+                    request.get('https://api.dailymotion.com/videos&list=what-to-watch&fields=title,thumbnail_240_url').end(function(err, data) {
                         resolve(data.text)
                     })
                 }

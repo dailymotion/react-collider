@@ -1,11 +1,12 @@
 var VideoPreview = React.createClass({
     render: function() {
-        var col = this.props.col || 4
-
         return (
-            <div className={'col-sm-' + col}>
+            <div className="video-preview">
                 <div className="row">
-                    <div className="col-sm-12">
+                    <div className="col-sm-6">
+                        <img src={this.props.video.thumbnail_240_url} width="100%" />
+                    </div>
+                    <div className="col-sm-6">
                         <h3>
                             {this.props.video.title}
                         </h3>

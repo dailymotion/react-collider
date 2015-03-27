@@ -35,3 +35,7 @@ footer
     height: 60px;
     background-color: #EFEFEF;
 }
+
+.video-preview {
+    margin-bottom: 20px;
+}

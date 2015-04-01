@@ -58,10 +58,11 @@ module.exports.server = function(routes, componentsPath) {
 var renderPage = function(Handler, data) {
     data = typeof data === 'string' ? JSON.parse(data) : data
     data = typeof data === 'object' ? data : null
-    React.render(React.renderComponent(Handler, {data: data}), document)
+    React.render(React.createElement(Handler, {data: data}), document)
 }
 
 module.exports.client = function(routes, componentsPath) {
+    require('./../../src/components/home/home')
     Router.run(routes, Router.HistoryLocation, function(Handler, state) {
         var fetchToRun = null,
             matchedHandler = null
@@ -69,7 +70,7 @@ module.exports.client = function(routes, componentsPath) {
         state.routes.forEach(function(matchedRoute) {
             if (typeof matchedRoute.handler.fetchData === 'function') {
                 matchedHandler = matchedRoute.handler.displayName
-                fetchToRun = require(path.join(componentsPath, matchedRoute.handler.getModulePath())).fetchData
+                fetchToRun = require('./' + path.join('../../', componentsPath, matchedRoute.handler.getModulePath())).fetchData
             }
         })
 

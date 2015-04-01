@@ -1,4 +1,7 @@
-var RouteHandler = Router.RouteHandler
+var RouteHandler = require('react-router').RouteHandler,
+    Head   = require('./head/head'),
+    Header = require('./header/header'),
+    Footer = require('./footer/footer')
 
 var Html = React.createClass({
     getData: function() {

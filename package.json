@@ -1,8 +1,8 @@
 {
   "name": "react-collider",
   "version": "1.0.0",
-  "description": "Tentative to reach the Graal: isomorphic react done the good way",
-  "main": "server.js",
+  "description": "Express middleware for isomorphic express + react apps",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Youpinadi/react-collider.git"
@@ -20,6 +20,7 @@
     "gulp": "^3.8.11",
     "jquery": "^2.1.3",
     "node-jsx": "^0.12.4",
+    "parseurl": "^1.3.0",
     "react": "0.12.x",
     "react-router": "^0.12.4",
     "reactify": "^1.1.0",

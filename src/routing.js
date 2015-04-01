@@ -1,6 +1,5 @@
-require('./deps')
-
-var Route = Router.Route,
+var Router = require('react-router'),
+    Route = Router.Route,
     DefaultRoute = Router.DefaultRoute,
     Html = require('./components/layout/html')
 
@@ -17,4 +16,4 @@ var routes = (
     </Route>
 )
 
-global.Routes = routes
+module.exports = routes

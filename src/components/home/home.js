@@ -7,7 +7,7 @@ var Home = React.createClass({
             return 'home/home'
         },
         fetchData: function() {
-            return provider('wtw-videos', 'https://api.dailymotion.com/videos&list=what-to-watch&fields=title,thumbnail_240_url')
+            return provider('wtw-videos', 'https://api.dailymotion.com/videos&list=what-to-watch&fields=title,thumbnail_240_url', true)
         }
     },
     componentWillMount: function() {

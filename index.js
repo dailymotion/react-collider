@@ -1,6 +1,7 @@
 'use strict';
 
-var parseurl = require('parseurl')
+var path = require('path'),
+    parseurl = require('parseurl')
 
 global.React  = require('react')
 global.Router = require('react-router')
@@ -15,38 +16,28 @@ var returnResponse = function(res, Handler, data) {
     res.send(html)
 }
 
-module.exports.server = function(routingPath) {
-    if (!routingPath) {
-        throw new TypeError('routing path required')
-    }
-
-    if (typeof routingPath !== 'string') {
-        throw new TypeError('routing path must be a string')
-    }
-
-    var routes = require(routingPath)
-
+module.exports.server = function(routes, componentsPath) {
     return function (req, res, next) {
         if (req.method !== 'GET' && req.method !== 'HEAD') {
           return next()
         }
 
         var originalUrl = parseurl.original(req),
-            path = parseurl(req).pathname,
+            reqPath = parseurl(req).pathname,
             hasTrailingSlash = originalUrl.pathname[originalUrl.pathname.length - 1] === '/'
 
-        if (path === '/' && !hasTrailingSlash) {
-            path = ''
+        if (reqPath === '/' && !hasTrailingSlash) {
+            reqPath = ''
         }
 
-        Router.run(routes, path, function(Handler, state) {
+        Router.run(routes, reqPath, function(Handler, state) {
             var fetchToRun = null,
                 matchedHandler = null
 
             state.routes.forEach(function(matchedRoute) {
                 if (typeof matchedRoute.handler.fetchData === 'function') {
                     matchedHandler = matchedRoute.handler.displayName
-                    fetchToRun = require(matchedRoute.handler.getModulePath()).fetchData
+                    fetchToRun = require(path.join(componentsPath, matchedRoute.handler.getModulePath())).fetchData
                 }
             })
 
@@ -67,20 +58,10 @@ module.exports.server = function(routingPath) {
 var renderPage = function(Handler, data) {
     data = typeof data === 'string' ? JSON.parse(data) : data
     data = typeof data === 'object' ? data : null
-    React.render(<Handler data={data} />, document)
+    React.render(React.renderComponent(Handler, {data: data}), document)
 }
 
-module.exports.client = function(routingPath, componentsPath) {
-    if (!routingPath) {
-        throw new TypeError('routing path required')
-    }
-
-    if (typeof routingPath !== 'string') {
-        throw new TypeError('routing path must be a string')
-    }
-
-    var routes = require(routingPath)
-
+module.exports.client = function(routes, componentsPath) {
     Router.run(routes, Router.HistoryLocation, function(Handler, state) {
         var fetchToRun = null,
             matchedHandler = null
@@ -88,7 +69,7 @@ module.exports.client = function(routingPath, componentsPath) {
         state.routes.forEach(function(matchedRoute) {
             if (typeof matchedRoute.handler.fetchData === 'function') {
                 matchedHandler = matchedRoute.handler.displayName
-                fetchToRun = require(componentsPath + '/' + matchedRoute.handler.getModulePath()).fetchData
+                fetchToRun = require(path.join(componentsPath, matchedRoute.handler.getModulePath())).fetchData
             }
         })
 

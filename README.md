@@ -12,7 +12,7 @@ Check out the `daily-collider` branch for a working example, including data-fetc
 
 ### Server side
 
-Simply add the server middleware in your express app, giving the path to your routing module as argument.
+Simply add the server middleware in your express app, giving your routes and the path to the components.
 
 ```javascript
 var express  = require('express'),
@@ -30,8 +30,12 @@ server.listen(port, function() {
 
 ### Client side
 
-Similar: call the client module giving the routes module path.
+Similar: call the client module with your routes and the components' path.
 
-var collider = require('./../collider').client
+```javascript
+var path = require('path'),
+    collider = require('./../collider').client,
+    routes = require('./routing')
 
-collider(('./routing')
+collider(routes, path.join(__dirname, './components'))
+```

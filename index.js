@@ -42,7 +42,6 @@ module.exports.server = function(routes, componentsPath) {
             })
 
             if (typeof fetchToRun === 'function') {
-                console.log('Fetching data from ' + matchedHandler)
                 fetchToRun().then(function(data) {
                     returnResponse(res, Handler, data)
                 })
@@ -75,7 +74,6 @@ module.exports.client = function(routes, componentsPath) {
         })
 
         if (typeof fetchToRun === 'function') {
-            console.log('Fetching data from ' + matchedHandler)
             fetchToRun().then(function(data) {
                 renderPage(Handler, data)
             })

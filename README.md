@@ -1,28 +1,37 @@
 # React-collider
 
-Tentative to reach the Graal: isomorphic react done the good way
+Express middleware for isomorphic express + react apps.
+
+Check out the `daily-collider` branch for a working example, including data-fetching from the Dailymotion API.
 
 ## Installation
 
-    # install the dependencies
-    $ npm install
-
-    # start the jsx compiler and watchify
-    $ gulp
-
-    # start the server
-    $ npm start
-
-Then open your browser at http://localhost:3000
+    $ npm install --save react-collider
 
 ## Usage
 
-Create your modules in `/src` then declare your routes in `/src/bootstrap.js`. The app will take care of the server-side rendering and the routing.
+### Server side
 
-## TODO
+Simply add the server middleware in your express app, giving the path to your routing module as argument.
 
-- [x] find the Grail
-- [x] use async API
-- [ ] use webpack
-- [ ] simplify `fetchData` call to handle multiple calls
-- [ ] move outputScript to `Html`
+```javascript
+var express  = require('express'),
+    path     = require('path'),
+    app      = express(),
+    port     = process.env.PORT || 3000,
+    collider = require('./collider').server
+
+server.use(collider(path.join(__dirname, 'src/routing')))
+
+server.listen(port, function() {
+  console.log('Listening on 127.0.0.1:' + port)
+})
+```
+
+### Client side
+
+Similar: call the client module giving the routes module path.
+
+var collider = require('./../collider').client
+
+collider(('./routing')

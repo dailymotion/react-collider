@@ -26,8 +26,6 @@ module.exports.server = function(routingPath) {
 
     var routes = require(routingPath)
 
-    console.log(routingPath)
-
     return function (req, res, next) {
         if (req.method !== 'GET' && req.method !== 'HEAD') {
           return next()
@@ -72,7 +70,17 @@ var renderPage = function(Handler, data) {
     React.render(<Handler data={data} />, document)
 }
 
-module.exports.client = function(routes, componentsPath) {
+module.exports.client = function(routingPath, componentsPath) {
+    if (!routingPath) {
+        throw new TypeError('routing path required')
+    }
+
+    if (typeof routingPath !== 'string') {
+        throw new TypeError('routing path must be a string')
+    }
+
+    var routes = require(routingPath)
+
     Router.run(routes, Router.HistoryLocation, function(Handler, state) {
         var fetchToRun = null,
             matchedHandler = null

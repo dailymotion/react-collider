@@ -19,11 +19,13 @@ var cleanData = function(data) {
 /**
  * Run react-router then check if the matching routes need to fetch some data
  * Used for both server and client side
- * @param {array} routerArgs - Arguments to pass to the router
- * @param {function} cb - Callback
  */
-var runRouter = function(routerArgs, cb) {
-    Router.run.apply(routerArgs, function(Handler, states) {
+var runRouter = function() {
+    var args = Array.prototype.slice.call(arguments),
+        routerArgs = args.splice(0, args.length - 1),
+        cb = args[args.length -1]
+
+    var routerCallback = function(Handler, state) {
         var fetchToRun = null,
             matchedHandler = null
 
@@ -34,17 +36,26 @@ var runRouter = function(routerArgs, cb) {
             }
         })
 
-        fetchToRun().then(function(data) {
-            cb(Handler, data)
-        })
-    })
+        if (typeof fetchToRun === 'function') {
+            fetchToRun().then(function(data) {
+                cb(Handler, data)
+            })
+        }
+        else {
+            cb(Handler)
+        }
+    }
+
+    routerArgs.push(routerCallback)
+
+    Router.run.apply(null, routerArgs)
 }
 
 // Server side rendering
 var returnResponse = function(res, Handler, data) {
     var content = React.renderToString(React.createElement(Handler, {data: cleanData(data)})),
         html = '<!DOCTYPE html>' + content
-    res.send(html)
+    res.end(html)
 }
 
 module.exports.server = function(routes, componentsPath) {
@@ -61,7 +72,7 @@ module.exports.server = function(routes, componentsPath) {
             reqPath = ''
         }
 
-        runRouter([routes, reqPath], function(Handler, data) {
+        runRouter(routes, reqPath, function(Handler, data) {
             returnResponse(res, Handler, data)
         })
     }
@@ -73,7 +84,7 @@ var renderPage = function(Handler, data) {
 }
 
 module.exports.client = function(routes, componentsPath) {
-    runRouter([routes, Router.HistoryLocation], function(Handler, data) {
+    runRouter(routes, Router.HistoryLocation, function(Handler, data) {
         renderPage(Handler, data)
     })
 }

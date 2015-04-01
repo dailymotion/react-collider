@@ -7,11 +7,42 @@ global.React  = require('react')
 global.Router = require('react-router')
 global.Link   = Router.Link
 
-// Server side rendering
-var returnResponse = function(res, Handler, data) {
+/**
+ * Make sure we use an object
+ */
+var cleanData = function(data) {
     data = typeof data === 'string' ? JSON.parse(data) : data
     data = typeof data === 'object' ? data : null
-    var content = React.renderToString(React.createElement(Handler, {data: data})),
+    return data
+}
+
+/**
+ * Run react-router then check if the matching routes need to fetch some data
+ * Used for both server and client side
+ * @param {array} routerArgs - Arguments to pass to the router
+ * @param {function} cb - Callback
+ */
+var runRouter = function(routerArgs, cb) {
+    Router.run.apply(routerArgs, function(Handler, states) {
+        var fetchToRun = null,
+            matchedHandler = null
+
+        state.routes.forEach(function(matchedRoute) {
+            if (typeof matchedRoute.handler.fetchData === 'function') {
+                matchedHandler = matchedRoute.handler.displayName
+                fetchToRun = require('./' + path.join('../../', componentsPath, matchedRoute.handler.getModulePath())).fetchData
+            }
+        })
+
+        fetchToRun().then(function(data) {
+            cb(Handler, data)
+        })
+    })
+}
+
+// Server side rendering
+var returnResponse = function(res, Handler, data) {
+    var content = React.renderToString(React.createElement(Handler, {data: cleanData(data)})),
         html = '<!DOCTYPE html>' + content
     res.send(html)
 }
@@ -30,56 +61,19 @@ module.exports.server = function(routes, componentsPath) {
             reqPath = ''
         }
 
-        Router.run(routes, reqPath, function(Handler, state) {
-            var fetchToRun = null,
-                matchedHandler = null
-
-            state.routes.forEach(function(matchedRoute) {
-                if (typeof matchedRoute.handler.fetchData === 'function') {
-                    matchedHandler = matchedRoute.handler.displayName
-                    fetchToRun = require(path.join(componentsPath, matchedRoute.handler.getModulePath())).fetchData
-                }
-            })
-
-            if (typeof fetchToRun === 'function') {
-                fetchToRun().then(function(data) {
-                    returnResponse(res, Handler, data)
-                })
-            }
-            else {
-                returnResponse(res, Handler)
-            }
+        runRouter([routes, reqPath], function(Handler, data) {
+            returnResponse(res, Handler, data)
         })
     }
 }
 
 // Client side rendering
 var renderPage = function(Handler, data) {
-    data = typeof data === 'string' ? JSON.parse(data) : data
-    data = typeof data === 'object' ? data : null
-    React.render(React.createElement(Handler, {data: data}), document)
+    React.render(React.createElement(Handler, {data: cleanData(data)}), document)
 }
 
 module.exports.client = function(routes, componentsPath) {
-    require('./../../src/components/home/home')
-    Router.run(routes, Router.HistoryLocation, function(Handler, state) {
-        var fetchToRun = null,
-            matchedHandler = null
-
-        state.routes.forEach(function(matchedRoute) {
-            if (typeof matchedRoute.handler.fetchData === 'function') {
-                matchedHandler = matchedRoute.handler.displayName
-                fetchToRun = require('./' + path.join('../../', componentsPath, matchedRoute.handler.getModulePath())).fetchData
-            }
-        })
-
-        if (typeof fetchToRun === 'function') {
-            fetchToRun().then(function(data) {
-                renderPage(Handler, data)
-            })
-        }
-        else {
-            renderPage(Handler)
-        }
+    runRouter([routes, Router.HistoryLocation], function(Handler, data) {
+        renderPage(Handler, data)
     })
 }

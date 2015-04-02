@@ -22,7 +22,8 @@ var cleanData = function(data) {
  */
 var runRouter = function() {
     var args = Array.prototype.slice.call(arguments),
-        routerArgs = args.splice(0, args.length - 1),
+        componentsPath = args[0],
+        routerArgs = args.splice(1, args.length - 2),
         cb = args[args.length -1]
 
     var routerCallback = function(Handler, state) {
@@ -32,7 +33,7 @@ var runRouter = function() {
         state.routes.forEach(function(matchedRoute) {
             if (typeof matchedRoute.handler.fetchData === 'function') {
                 matchedHandler = matchedRoute.handler.displayName
-                fetchToRun = require('./' + path.join('../../', componentsPath, matchedRoute.handler.getModulePath())).fetchData
+                fetchToRun = require(path.join(componentsPath, matchedRoute.handler.getModulePath())).fetchData
             }
         })
 
@@ -72,7 +73,7 @@ module.exports.server = function(routes, componentsPath) {
             reqPath = ''
         }
 
-        runRouter(routes, reqPath, function(Handler, data) {
+        runRouter(componentsPath, routes, reqPath, function(Handler, data) {
             returnResponse(res, Handler, data)
         })
     }
@@ -84,7 +85,7 @@ var renderPage = function(Handler, data) {
 }
 
 module.exports.client = function(routes, componentsPath) {
-    runRouter(routes, Router.HistoryLocation, function(Handler, data) {
+    runRouter(componentsPath, routes, Router.HistoryLocation, function(Handler, data) {
         renderPage(Handler, data)
     })
 }

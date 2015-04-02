@@ -1,11 +1,9 @@
 'use strict';
 
 var path = require('path'),
-    parseurl = require('parseurl')
-
-global.React  = require('react')
-global.Router = require('react-router')
-global.Link   = Router.Link
+    parseurl = require('parseurl'),
+    React  = require('react'),
+    Router = require('react-router')
 
 /**
  * Make sure we use an object

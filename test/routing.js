@@ -1,10 +1,11 @@
 var React = require('react'),
+    Router = require('react-router'),
     Route = Router.Route,
     RouteHandler = Router.RouteHandler,
     DefaultRoute = Router.DefaultRoute,
-    Home = require('./home'),
-    Page = require('./page'),
-    Video = require('./video')
+    Home = require('./components/home'),
+    Page = require('./components/page'),
+    Video = require('./components/video')
 
 var App = React.createClass({
     getData: function() {

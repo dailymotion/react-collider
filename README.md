@@ -1,6 +1,6 @@
 # React-collider
 
-Express middleware for isomorphic express + react apps.
+Express middleware for isomorphic Express + React apps.
 
 Check out the [daily-collider](https://github.com/Youpinadi/react-collider/tree/daily-collider) branch for a working example, including data-fetching from the Dailymotion API.
 
@@ -22,7 +22,7 @@ var express  = require('express'),
     collider = require('./collider').server,
     routes   = require('./routing')
 
-app.use(collider(routes, path.join(__dirname, './components')))
+app.use(collider(routes, path.join(__dirname, 'components')))
 
 app.listen(port, function() {
   console.log('Listening on 127.0.0.1:' + port)
@@ -38,7 +38,7 @@ var path     = require('path'),
     collider = require('./../collider').client,
     routes   = require('./routing')
 
-collider(routes, path.join(__dirname, './components'))
+collider(routes, path.join(__dirname, 'components'))
 ```
 
 ### Components

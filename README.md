@@ -2,7 +2,7 @@
 
 Express middleware for isomorphic Express + React apps.
 
-Check out the [daily-collider](https://github.com/Youpinadi/react-collider/tree/daily-collider) branch for a working example, including data-fetching from the Dailymotion API.
+Check out the `example` folder for a working example, including data-fetching from the Dailymotion API.
 
 ## Installation
 

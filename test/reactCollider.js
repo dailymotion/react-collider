@@ -52,7 +52,7 @@ describe('React Collider', function() {
 })
 
 function createServer() {
-    var reactCollider = collider.server(routes, path.join(__dirname, 'components'))
+    var reactCollider = collider.server(routes)
 
     return http.createServer(function(req, res) {
         reactCollider(req, res)

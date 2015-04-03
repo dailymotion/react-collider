@@ -12,8 +12,8 @@ var Home  = require('./components/home/home'),
 var routes = (
     <Route handler={Html} path="/">
         <DefaultRoute handler={Home} />
-        <Route name="home" handler={Home} />
-        <Route name="video" handler={Video} />
+        <Route name="home" handler={Home} path="/" />
+        <Route name="video" handler={Video} path="/video" />
     </Route>
 )
 

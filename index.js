@@ -17,21 +17,17 @@ var cleanData = function(data) {
 /**
  * Run react-router then check if the matching routes need to fetch some data
  * Used for both server and client side
+ * @param {object} routes
+ * @param {mixed} routerArg - string for server side or router argument for client side
+ * @param {function} cb
  */
-var runRouter = function() {
-    var args = Array.prototype.slice.call(arguments),
-        componentsPath = args[0],
-        routerArgs = args.splice(1, args.length - 2),
-        cb = args[args.length -1]
-
+var runRouter = function(routes, routerArg, cb) {
     var routerCallback = function(Handler, state) {
-        var fetchToRun = null,
-            matchedHandler = null
+        var fetchToRun = null
 
         state.routes.forEach(function(matchedRoute) {
             if (typeof matchedRoute.handler.fetchData === 'function') {
-                matchedHandler = matchedRoute.handler.displayName
-                fetchToRun = require(path.join(componentsPath, matchedRoute.handler.getModulePath())).fetchData
+                fetchToRun = matchedRoute.handler.fetchData
             }
         })
 
@@ -45,9 +41,7 @@ var runRouter = function() {
         }
     }
 
-    routerArgs.push(routerCallback)
-
-    Router.run.apply(null, routerArgs)
+    Router.run(routes, routerArg, routerCallback)
 }
 
 // Server side rendering
@@ -57,7 +51,7 @@ var returnResponse = function(res, Handler, data) {
     res.end(html)
 }
 
-module.exports.server = function(routes, componentsPath) {
+module.exports.server = function(routes) {
     return function (req, res, next) {
         if (req.method !== 'GET' && req.method !== 'HEAD') {
           return next()
@@ -71,7 +65,7 @@ module.exports.server = function(routes, componentsPath) {
             reqPath = ''
         }
 
-        runRouter(componentsPath, routes, reqPath, function(Handler, data) {
+        runRouter(routes, reqPath, function(Handler, data) {
             returnResponse(res, Handler, data)
         })
     }
@@ -82,8 +76,8 @@ var renderPage = function(Handler, data) {
     React.render(React.createElement(Handler, {data: cleanData(data)}), document)
 }
 
-module.exports.client = function(routes, componentsPath) {
-    runRouter(componentsPath, routes, Router.HistoryLocation, function(Handler, data) {
+module.exports.client = function(routes) {
+    runRouter(routes, Router.HistoryLocation, function(Handler, data) {
         renderPage(Handler, data)
     })
 }

@@ -1,13 +1,11 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-(function (__dirname){
 var path = require('path')
     collider = require('react-collider').client,
     routes = require('./routing')
 
-collider(routes, path.join(__dirname, './components'))
+collider(routes)
 
 
-}).call(this,"/src")
 },{"./routing":217,"path":3,"react-collider":11}],2:[function(require,module,exports){
 (function (process,global){
 /* @preserve
@@ -6940,21 +6938,17 @@ var cleanData = function(data) {
 /**
  * Run react-router then check if the matching routes need to fetch some data
  * Used for both server and client side
+ * @param {object} routes
+ * @param {mixed} routerArg - string for server side or router argument for client side
+ * @param {function} cb
  */
-var runRouter = function() {
-    var args = Array.prototype.slice.call(arguments),
-        componentsPath = args[0],
-        routerArgs = args.splice(1, args.length - 2),
-        cb = args[args.length -1]
-
+var runRouter = function(routes, routerArg, cb) {
     var routerCallback = function(Handler, state) {
-        var fetchToRun = null,
-            matchedHandler = null
+        var fetchToRun = null
 
         state.routes.forEach(function(matchedRoute) {
             if (typeof matchedRoute.handler.fetchData === 'function') {
-                matchedHandler = matchedRoute.handler.displayName
-                fetchToRun = require(path.join(componentsPath, matchedRoute.handler.getModulePath())).fetchData
+                fetchToRun = matchedRoute.handler.fetchData
             }
         })
 
@@ -6968,9 +6962,7 @@ var runRouter = function() {
         }
     }
 
-    routerArgs.push(routerCallback)
-
-    Router.run.apply(null, routerArgs)
+    Router.run(routes, routerArg, routerCallback)
 }
 
 // Server side rendering
@@ -6980,7 +6972,7 @@ var returnResponse = function(res, Handler, data) {
     res.end(html)
 }
 
-module.exports.server = function(routes, componentsPath) {
+module.exports.server = function(routes) {
     return function (req, res, next) {
         if (req.method !== 'GET' && req.method !== 'HEAD') {
           return next()
@@ -6994,7 +6986,7 @@ module.exports.server = function(routes, componentsPath) {
             reqPath = ''
         }
 
-        runRouter(componentsPath, routes, reqPath, function(Handler, data) {
+        runRouter(routes, reqPath, function(Handler, data) {
             returnResponse(res, Handler, data)
         })
     }
@@ -7005,8 +6997,8 @@ var renderPage = function(Handler, data) {
     React.render(React.createElement(Handler, {data: cleanData(data)}), document)
 }
 
-module.exports.client = function(routes, componentsPath) {
-    runRouter(componentsPath, routes, Router.HistoryLocation, function(Handler, data) {
+module.exports.client = function(routes) {
+    runRouter(routes, Router.HistoryLocation, function(Handler, data) {
         renderPage(Handler, data)
     })
 }
@@ -31097,11 +31089,11 @@ var Header = React.createClass({displayName: "Header",
     render: function() {
         return (
             React.createElement("header", null, 
-                React.createElement(Link, {to: "home"}, 
+                React.createElement(Link, {to: "/"}, 
                     React.createElement("img", {height: "60px", src: "http://static1-preprod.dmcdn.net/images/header/logo_dailymotion@2x.png.v41c4e908eb6427162"})
                 ), 
-                React.createElement(Link, {to: "home"}, "homepage"), 
-                React.createElement(Link, {to: "video"}, "video")
+                React.createElement(Link, {to: "/"}, "homepage"), 
+                React.createElement(Link, {to: "/video"}, "video")
             )
         )
     }
@@ -31231,8 +31223,8 @@ var Home  = require('./components/home/home'),
 var routes = (
     React.createElement(Route, {handler: Html, path: "/"}, 
         React.createElement(DefaultRoute, {handler: Home}), 
-        React.createElement(Route, {name: "home", handler: Home}), 
-        React.createElement(Route, {name: "video", handler: Video})
+        React.createElement(Route, {name: "home", handler: Home, path: "/"}), 
+        React.createElement(Route, {name: "video", handler: Video, path: "/video"})
     )
 )
 

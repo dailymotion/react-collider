@@ -1,7 +1,6 @@
 var assert   = require('chai').assert,
     expect   = require('chai').expect,
     http     = require('http'),
-    path     = require('path'),
     request  = require('supertest'),
     collider = require('..'),
     routes   = require('./routing')

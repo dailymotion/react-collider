@@ -12,17 +12,16 @@ Check out the `example` folder for a working example, including data-fetching fr
 
 ### Server side
 
-Simply add the server middleware in your express app, giving your routes and the path to the components.
+Simply add the server middleware in your express app, giving your routes as argument.
 
 ```javascript
 var express  = require('express'),
-    path     = require('path'),
     app      = express(),
     port     = process.env.PORT || 3000,
     collider = require('./collider').server,
     routes   = require('./routing')
 
-app.use(collider(routes, path.join(__dirname, 'components')))
+app.use(collider(routes))
 
 app.listen(port, function() {
   console.log('Listening on 127.0.0.1:' + port)
@@ -31,14 +30,13 @@ app.listen(port, function() {
 
 ### Client side
 
-Similar: call the client module with your routes and the components' path.
+Similar: call the client module with your routes.
 
 ```javascript
-var path     = require('path'),
-    collider = require('./../collider').client,
+var collider = require('./../collider').client,
     routes   = require('./routing')
 
-collider(routes, path.join(__dirname, 'components'))
+collider(routes)
 ```
 
 ### Components

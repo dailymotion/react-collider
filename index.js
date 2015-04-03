@@ -1,7 +1,6 @@
 'use strict';
 
-var path = require('path'),
-    parseurl = require('parseurl'),
+var parseurl = require('parseurl'),
     React  = require('react'),
     Router = require('react-router')
 

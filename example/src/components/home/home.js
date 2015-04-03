@@ -5,12 +5,10 @@ var React = require('react'),
 var Home = React.createClass({
     statics: {
         fetchData: function() {
-            return provider('wtw-videos', 'https://api.dailymotion.com/videos&list=what-to-watch&fields=title,thumbnail_240_url', true)
+            return provider('wtw-videos', 'https://api.dailymotion.com/videos?list=what-to-watch&fields=title,thumbnail_240_url', true)
         }
     },
     componentWillMount: function() {
-        console.log('componentWillMount')
-
         var self = this
         this.getVideosList(function(data) {
             self.setState({videos: data})

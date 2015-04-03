@@ -39,3 +39,8 @@ footer
 .video-preview {
     margin-bottom: 20px;
 }
+
+.player {
+    display: block;
+    margin: 30px auto;
+}

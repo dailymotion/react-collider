@@ -41,8 +41,6 @@ collider(routes)
 
 ### Components
 
-Your components must have a mandatory `getModulePath` static method, which must return a string giving the path to the module, relative to the component path.
-
 If your component must fetch some data before being rendered, use a `fetchData` static method. It must return a promise.
 
 Example of a simple component:
@@ -50,9 +48,6 @@ Example of a simple component:
 ```javascript
 var Home = React.createClass({
     statics: {
-        getModulePath: function() {
-            return 'home/home'
-        },
         fetchData: function() {
             // returns a promise
             return getHomeData()

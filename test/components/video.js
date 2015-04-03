@@ -5,9 +5,6 @@ var React = require('react'),
 
 var Video = React.createClass({
     statics: {
-        getModulePath: function() {
-            return 'video'
-        },
         fetchData: function() {
             return new Promise(function(resolve) {
                 fs.readFile(path.join(__dirname, 'fixtures.json'), 'utf-8', function(err, data) {

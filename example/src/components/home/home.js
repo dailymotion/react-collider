@@ -4,9 +4,6 @@ var React = require('react'),
 
 var Home = React.createClass({
     statics: {
-        getModulePath: function() {
-            return 'home/home'
-        },
         fetchData: function() {
             return provider('wtw-videos', 'https://api.dailymotion.com/videos&list=what-to-watch&fields=title,thumbnail_240_url', true)
         }

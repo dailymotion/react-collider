@@ -1,12 +1,10 @@
-var React = require('react'),
-    Router = require('react-router'),
-    Route = Router.Route,
-    DefaultRoute = Router.DefaultRoute,
-    Html = require('./components/layout/html')
+import React from 'react'
+import {default as Router, Route, DefaultRoute} from 'react-router'
+import Html from './components/layout/html'
 
-// Require your pages
-var Home  = require('./components/home/home'),
-    Video = require('./components/video/video')
+// Import your pages
+import Home from './components/home/home'
+import Video from './components/video/video'
 
 // Declare your routes
 var routes = (
@@ -17,4 +15,4 @@ var routes = (
     </Route>
 )
 
-module.exports = routes
+export default routes

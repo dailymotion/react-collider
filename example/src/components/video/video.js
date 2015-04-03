@@ -1,28 +1,27 @@
-var React = require('react'),
-    Player = require('./../player/player'),
-    provider = require('./../../lib/data-provider')
+import React from 'react'
+import Player from './../player/player'
+import provider from './../../lib/data-provider'
 
-var Video = React.createClass({
-    statics: {
-        getVideoId: function() {
-            return 'x2dsjzl'
-        },
-        fetchData: function() {
-            return provider('video', 'https://api.dailymotion.com/video/' + Video.getVideoId() + '?fields=id,title', true)
-        }
-    },
-    componentWillMount: function() {
+export default class Video extends React.Component {
+    static getVideoId() {
+        return 'x2dsjzl'
+    }
+    static fetchData() {
+        return provider('video', 'https://api.dailymotion.com/video/' + Video.getVideoId() + '?fields=id,title', true)
+    }
+
+    componentWillMount() {
         this.setState({video: this.getVideo()})
-    },
-    outputScript: function() {
+    }
+    outputScript() {
         var data = this.props.data
         if (typeof data === 'object') {
             data = JSON.stringify(data)
         }
 
         return {__html: "var initialData = " + data}
-    },
-    getVideo: function() {
+    }
+    getVideo() {
         var data = this.props.data
 
         if (typeof data === 'string') {
@@ -30,8 +29,8 @@ var Video = React.createClass({
         }
 
         return data
-    },
-    render: function() {
+    }
+    render() {
         return (
             <div>
                 <h1>Video</h1>
@@ -40,6 +39,4 @@ var Video = React.createClass({
             </div>
         )
     }
-})
-
-module.exports = Video
+}

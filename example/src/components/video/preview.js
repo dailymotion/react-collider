@@ -1,7 +1,7 @@
-var React = require('react')
+import React from 'react'
 
-var VideoPreview = React.createClass({
-    render: function() {
+export default class VideoPreview extends React.Component {
+    render() {
         return (
             <div className="video-preview">
                 <div className="row">
@@ -17,6 +17,4 @@ var VideoPreview = React.createClass({
             </div>
         )
     }
-})
-
-module.exports = VideoPreview
+}

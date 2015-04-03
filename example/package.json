@@ -12,6 +12,8 @@
   },
   "homepage": "https://github.com/Youpinadi/react-collider",
   "dependencies": {
+    "babel": "^5.0.6",
+    "babelify": "^6.0.1",
     "bluebird": "^2.9.15",
     "browserify": "^9.0.3",
     "express": "^4.12.3",
@@ -29,5 +31,8 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^2.4.0"
+  },
+  "scripts": {
+    "start": "./node_modules/.bin/babel-node server.js"
   }
 }

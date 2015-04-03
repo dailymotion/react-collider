@@ -1,26 +1,21 @@
-var React = require('react')
+import React from 'react'
 
-var MetaElement = React.createClass({
-    render: function() {
+class MetaElement extends React.Component {
+    render() {
         return <meta {...this.props}/>
     }
-})
+}
 
-var LinkElement = React.createClass({
-    render: function() {
+class LinkElement extends React.Component {
+    render() {
         return <link {...this.props}/>
     }
-})
+}
 
-var baseLinks = [
-    {rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'},
-    {rel: 'stylesheet', href: '/main.css'},
-    {rel: 'icon', type: 'image/png', href: 'http://static1-preprod.dmcdn.net/images/favicon-32x32.png.ve01cb944231b03752'}
-]
-
-var Head = React.createClass({
-    getInitialState: function() {
-        return {
+export default class Head extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
             title: 'Daily Collider',
             metas:
             [
@@ -29,10 +24,14 @@ var Head = React.createClass({
                 {property: 'og:image', content: 'http://static1.dmcdn.net/images/dailymotion-logo-ogtag.png.vd4024a4454f2e2627'},
                 {property: 'og:type', content: 'website'}
             ],
-            links: baseLinks
+            links: [
+                {rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'},
+                {rel: 'stylesheet', href: '/main.css'},
+                {rel: 'icon', type: 'image/png', href: 'http://static1-preprod.dmcdn.net/images/favicon-32x32.png.ve01cb944231b03752'}
+            ]
         }
-    },
-    render: function() {
+    }
+    render() {
         var i = 0,
             metas = this.state.metas.map(function (data) {
                 return <MetaElement key={i++} {...data} />
@@ -49,6 +48,4 @@ var Head = React.createClass({
             </head>
         )
     }
-})
-
-module.exports = Head
+}

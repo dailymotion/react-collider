@@ -7,10 +7,12 @@ var gulp = require('gulp'),
     buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
     watchify = require('watchify'),
-    reactify = require('reactify')
+    reactify = require('reactify'),
+    babelify = require('gulp-babel')
 
 var bundler = watchify(browserify('./src/app.js', watchify.args))
 // add any other browserify options or transforms here
+bundler.transform('babelify')
 bundler.transform('reactify')
 
 gulp.task('default', bundle)

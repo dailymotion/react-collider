@@ -1,8 +1,8 @@
-var request = require('superagent'),
-    Promise = require('bluebird')
+import request from 'superagent'
+import Promise from 'bluebird'
 
 // @todo initialData must be an object
-var DataProvider = function(name, url) {
+export default function(name, url) {
     return new Promise(function(resolve) {
         if (typeof initialData !== 'undefined' && initialData !== null) {
             var data = initialData
@@ -16,5 +16,3 @@ var DataProvider = function(name, url) {
         }
     })
 }
-
-module.exports = DataProvider

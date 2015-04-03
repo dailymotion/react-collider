@@ -1,28 +1,26 @@
-var React = require('react'),
-    VideoPreview = require('./../video/preview'),
-    provider = require('./../../lib/data-provider')
+import React from 'react'
+import VideoPreview from './../video/preview'
+import provider from './../../lib/data-provider'
 
-var Home = React.createClass({
-    statics: {
-        fetchData: function() {
-            return provider('wtw-videos', 'https://api.dailymotion.com/videos?list=what-to-watch&fields=title,thumbnail_240_url', true)
-        }
-    },
-    componentWillMount: function() {
+export default class Home extends React.Component {
+    static fetchData() {
+        return provider('wtw-videos', 'https://api.dailymotion.com/videos?list=what-to-watch&fields=title,thumbnail_240_url', true)
+    }
+    componentWillMount() {
         var self = this
         this.getVideosList(function(data) {
             self.setState({videos: data})
         })
-    },
-    outputScript: function() {
+    }
+    outputScript() {
         var data = this.props.data
         if (typeof data === 'object') {
             data = JSON.stringify(data)
         }
 
         return {__html: "var initialData = " + data}
-    },
-    getVideosList: function(cb) {
+    }
+    getVideosList(cb) {
         var videos = '',
             i = 0
 
@@ -39,8 +37,8 @@ var Home = React.createClass({
         }
 
         cb(videos)
-    },
-    render: function() {
+    }
+    render() {
         return (
             <div>
                 <h1>Homepage</h1>
@@ -49,6 +47,4 @@ var Home = React.createClass({
             </div>
         )
     }
-})
-
-module.exports = Home
+}

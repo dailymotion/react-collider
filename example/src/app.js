@@ -1,4 +1,4 @@
-var collider = require('react-collider').client,
-    routes = require('./routing')
+import {client as collider} from 'react-collider'
+import routes from './routing'
 
 collider(routes)

@@ -1,34 +1,32 @@
-var React = require('react'),
-    RouteHandler = require('react-router').RouteHandler,
-    Head   = require('./head/head'),
-    Header = require('./header/header'),
-    Footer = require('./footer/footer')
+import React from 'react'
+import {RouteHandler} from 'react-router'
+import Head from './head/head'
+import Header from './header/header'
+import Footer from './footer/footer'
+import Sidebar from './sidebar/sidebar'
 
-var Html = React.createClass({
-    getData: function() {
+export default class Html extends React.Component {
+    getData() {
         return this.props.data || {}
-    },
-    render: function() {
+    }
+    render() {
         return (
             <html id="html">
                 <Head />
                 <body id="body">
-                    <div>
-                        <Header />
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-lg-12">
-                                    <RouteHandler data={this.getData()} />
-                                </div>
+                    <Header />
+                    <div className="container">
+                        <div className="row">
+                            <Sidebar className="col-lg-2"/>
+                            <div className="col-lg-10">
+                                <RouteHandler data={this.getData()} />
                             </div>
                         </div>
-                        <Footer />
                     </div>
+                    <Footer />
                     <script src="/bundle.js"></script>
                 </body>
             </html>
         )
     }
-})
-
-module.exports = Html
+}

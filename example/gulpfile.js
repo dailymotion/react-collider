@@ -1,42 +1,30 @@
 'use strict';
 
-var gulp     = require('gulp'),
-    sequence = require('gulp-sequence'),
-    plumber  = require('gulp-plumber'),
-    reactify = require('reactify'),
-    webpack  = require('gulp-webpack'),
-    react    = require('gulp-react'),
-    rimraf   = require('rimraf'),
-    noop     = function() {}
+var gulp = require('gulp'),
+    gutil = require('gulp-util'),
+    sourcemaps = require('gulp-sourcemaps'),
+    source = require('vinyl-source-stream'),
+    buffer = require('vinyl-buffer'),
+    browserify = require('browserify'),
+    watchify = require('watchify'),
+    reactify = require('reactify')
 
-gulp.task('webpack', function() {
-    gulp.src('./tmp/app.js')
-        .pipe(plumber())
-        .pipe(webpack({
-            entry: {
-                app: './tmp/app.js'
-            },
-            output: {
-                filename: 'bundle.js'
-            }
-        }))
-        .pipe(gulp.dest('public/'))
-})
+var bundler = watchify(browserify('./src/app.js', watchify.args))
+// add any other browserify options or transforms here
+bundler.transform('reactify')
 
-gulp.task('react', function() {
-    return gulp.src('src/**/*.js')
-        .pipe(plumber())
-        .pipe(react())
-        .pipe(gulp.dest('tmp/'))
-})
+gulp.task('default', bundle)
+bundler.on('update', bundle) // on any dep update, runs the bundler
+bundler.on('log', gutil.log) // output build logs to terminal
 
-gulp.task('clean', function() {
-    rimraf('./tmp', noop)
-    rimraf('./public/bundle.js', noop)
-})
-
-gulp.task('build', sequence('react', 'webpack'))
-
-gulp.task('default', function() {
-    gulp.watch('src/**/*.js', ['build'])
-})
+function bundle() {
+  return bundler.bundle()
+    // log errors if they happen
+    .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+    .pipe(source('bundle.js'))
+    // optional, remove if you dont want sourcemaps
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
+    .pipe(sourcemaps.write('./')) // writes .map file
+    .pipe(gulp.dest('./public'))
+}

@@ -1,4 +1,4 @@
 node_modules
 npm-debug.log
 example/public/bundle.js
-example/tmp
+example/public/bundle.js.map

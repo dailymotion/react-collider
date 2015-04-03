@@ -21,7 +21,7 @@ var baseLinks = [
 var Head = React.createClass({
     getInitialState: function() {
         return {
-            title: 'First react test',
+            title: 'Daily Collider',
             metas:
             [
                 {name: 'language', content: 'fr-FR'},

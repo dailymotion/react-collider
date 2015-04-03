@@ -1,4 +1,5 @@
-var collider = require('./').client
+var path = require('path')
+    collider = require('react-collider').client,
     routes = require('./routing')
 
-collider(routes, './components')
+collider(routes, path.join(__dirname, './components'))

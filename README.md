@@ -18,7 +18,7 @@ Simply add the server middleware in your express app, giving your routes as argu
 var express  = require('express'),
     app      = express(),
     port     = process.env.PORT || 3000,
-    collider = require('./collider').server,
+    collider = require('react-collider').server,
     routes   = require('./routing')
 
 app.use(collider(routes))
@@ -33,7 +33,7 @@ app.listen(port, function() {
 Similar: call the client module with your routes.
 
 ```javascript
-var collider = require('./../collider').client,
+var collider = require('react-collider').client,
     routes   = require('./routing')
 
 collider(routes)

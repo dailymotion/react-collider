@@ -4,7 +4,8 @@ var React = require('react'),
     RouteHandler = Router.RouteHandler,
     Home = require('./components/home'),
     Page = require('./components/page'),
-    Video = require('./components/video')
+    Video = require('./components/video'),
+    Sidebar = require('./components/sidebar')
 
 var App = React.createClass({
     getData: function() {
@@ -13,6 +14,7 @@ var App = React.createClass({
     render: function() {
         return (
             React.createElement('div', null,
+                React.createElement(Sidebar, null),
                 React.createElement(RouteHandler, {data: this.getData()})
             )
         )

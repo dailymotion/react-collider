@@ -9,6 +9,14 @@ export default class Html extends React.Component {
     getData() {
         return this.props.data || {}
     }
+    outputScript() {
+        var data = this.props.data
+        if (typeof data === 'object') {
+            data = JSON.stringify(data)
+        }
+
+        return {__html: "var initialData = " + data}
+    }
     render() {
         return (
             <html id="html">
@@ -19,11 +27,12 @@ export default class Html extends React.Component {
                         <div className="row">
                             <Sidebar className="col-lg-2"/>
                             <div className="col-lg-10">
-                                <RouteHandler data={this.getData()} />
+                                <RouteHandler />
                             </div>
                         </div>
                     </div>
                     <Footer />
+                    <script dangerouslySetInnerHTML={this.outputScript()} />
                     <script src="/bundle.js"></script>
                 </body>
             </html>

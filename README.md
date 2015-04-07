@@ -8,6 +8,11 @@ Check out the `example` folder for a working example, including data-fetching fr
 
     $ npm install --save react-collider
 
+## Features
+
+- Handle server and clien side rendering
+- Takes care of data fetching when needed
+
 ## Usage
 
 ### Server side

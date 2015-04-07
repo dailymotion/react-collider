@@ -48,6 +48,26 @@ describe('React Collider', function() {
         })
         .end(done)
     })
+
+    it('should fetch data for the router main handler children', function(done) {
+        request(server)
+        .get('/')
+        .expect(200)
+        .expect(function(res) {
+            expect(res.text).to.have.string('Sidebar content')
+        })
+        .end(done)
+    })
+
+    it('should fetch data for the routes handler children', function(done) {
+        request(server)
+        .get('/')
+        .expect(200)
+        .expect(function(res) {
+            expect(res.text).to.have.string('Home children content')
+        })
+        .end(done)
+    })
 })
 
 function createServer() {

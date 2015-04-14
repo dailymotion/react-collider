@@ -6,6 +6,9 @@ import Footer from './footer/footer'
 import Sidebar from './sidebar/sidebar'
 
 export default class Html extends React.Component {
+    static getDependencies() {
+        return [Sidebar]
+    }
     getData() {
         return this.props.data || {}
     }
@@ -18,6 +21,7 @@ export default class Html extends React.Component {
         return {__html: "var initialData = " + data}
     }
     render() {
+        // <script dangerouslySetInnerHTML={this.outputScript()} />
         return (
             <html>
                 <Head />
@@ -25,13 +29,13 @@ export default class Html extends React.Component {
                     <Header />
                     <div className="container">
                         <div className="row">
+                            <Sidebar className="col-lg-2" data={this.props.data.Sidebar} />
                             <div className="col-lg-10">
-                                <RouteHandler />
+                                <RouteHandler data={this.props.data} />
                             </div>
                         </div>
                     </div>
                     <Footer />
-                    <script dangerouslySetInnerHTML={this.outputScript()} />
                     <script src="/bundle.js"></script>
                 </body>
             </html>

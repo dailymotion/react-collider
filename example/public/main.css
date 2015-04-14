@@ -44,3 +44,7 @@ footer
     display: block;
     margin: 30px auto;
 }
+
+.user {
+    margin: 5px 0;
+}

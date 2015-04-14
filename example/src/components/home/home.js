@@ -20,7 +20,7 @@ export default class Home extends React.Component {
         var videos = '',
             i = 0
 
-        var data = this.props.data
+        var data = this.props.data.Home
 
         if (typeof data === 'string') {
             data = JSON.parse(data)

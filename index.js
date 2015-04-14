@@ -1,8 +1,9 @@
 'use strict';
 
 var parseurl = require('parseurl'),
-    React  = require('react'),
-    Router = require('react-router')
+    React    = require('react'),
+    Router   = require('react-router'),
+    join     = require('bluebird').join
 
 /**
  * Make sure we use an object
@@ -22,18 +23,28 @@ var cleanData = function(data) {
  */
 var runRouter = function(routes, routerArg, cb) {
     var routerCallback = function(Handler, state) {
-        var fetchToRun = null
+        var fetches = []
+
+        if (typeof routes.props.handler.getDependencies === 'function') {
+            routes.props.handler.getDependencies().forEach(function(dep) {
+                if (typeof dep.fetchData === 'function') {
+                    fetches.push(dep.fetchData())
+                }
+            })
+        }
 
         state.routes.forEach(function(matchedRoute) {
             if (typeof matchedRoute.handler.fetchData === 'function') {
-                fetchToRun = matchedRoute.handler.fetchData
+                fetches.push(matchedRoute.handler.fetchData())
             }
         })
 
-        if (typeof fetchToRun === 'function') {
-            fetchToRun().then(function(data) {
-                cb(Handler, data)
+        if (fetches.length) {
+            fetches.push(function() {
+                cb(Handler, Array.prototype.slice.call(arguments))
             })
+
+            join.apply(null, fetches)
         }
         else {
             cb(Handler)

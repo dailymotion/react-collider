@@ -1,4 +1,7 @@
-var React = require('react')
+var React = require('react'),
+    fs = require('fs'),
+    path = require('path'),
+    Promise = require('bluebird')
 
 var Sidebar = React.createClass({
     statics: {
@@ -11,10 +14,10 @@ var Sidebar = React.createClass({
         }
     },
     componentWillMount: function() {
-        this.setState({data: this.props.data})
+        this.setState({data: this.props.data[0].sidebarContent})
     },
     getSidebarContent: function() {
-        return this.state.data ? this.state.data.sidebarContent : ''
+        return this.state.data ? this.state.data : ''
     },
     render: function() {
         return (

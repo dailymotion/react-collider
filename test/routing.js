@@ -8,13 +8,18 @@ var React = require('react'),
     Sidebar = require('./components/sidebar')
 
 var App = React.createClass({
+    statics: {
+        getDependencies: function() {
+            return [Sidebar]
+        }
+    },
     getData: function() {
         return this.props.data || {}
     },
     render: function() {
         return (
             React.createElement('div', null,
-                React.createElement(Sidebar, null),
+                React.createElement(Sidebar, {data: this.getData()}),
                 React.createElement(RouteHandler, {data: this.getData()})
             )
         )

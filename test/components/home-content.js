@@ -11,7 +11,7 @@ var HomeContent = React.createClass({
         }
     },
     componentWillMount: function() {
-        this.setState({data: this.props.data})
+        this.setState({data: this.props.data[0]})
     },
     getHomeContent: function() {
         return this.state.data ? this.state.data.homeContent : ''

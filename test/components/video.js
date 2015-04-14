@@ -14,10 +14,10 @@ var Video = React.createClass({
         }
     },
     componentWillMount: function() {
-        this.setState({video: this.props.data})
+        this.setState({video: this.props.data[0].title})
     },
     getVideoTitle: function() {
-        return this.state.video ? this.state.video.title : ''
+        return this.state.video ? this.state.video : ''
     },
     render: function() {
         return (

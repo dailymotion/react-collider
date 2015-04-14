@@ -6,7 +6,7 @@ var Home = React.createClass({
         return (
             React.createElement('div', null,
                 React.createElement('h1', null, 'Homepage'),
-                React.createElement(HomeContent, null)
+                React.createElement(HomeContent, {data: this.props.data})
             )
         )
     }

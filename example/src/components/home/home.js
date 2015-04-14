@@ -3,8 +3,12 @@ import VideoPreview from './../video/preview'
 import provider from './../../lib/data-provider'
 
 export default class Home extends React.Component {
+    static getIds() {
+        return 'x2mb4y5,+x2mb373,+x2mmd5u'
+    }
     static fetchData() {
-        return provider('wtw-videos', 'https://api.dailymotion.com/videos?list=what-to-watch&fields=title,thumbnail_240_url', true)
+        var url = 'https://api.dailymotion.com/videos?fields=id,title,thumbnail_240_url&languages=en&ids=' + Home.getIds()
+        return provider('wtw-videos', url, true)
     }
     componentWillMount() {
         var self = this

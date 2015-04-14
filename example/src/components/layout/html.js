@@ -11,13 +11,12 @@ export default class Html extends React.Component {
     }
     render() {
         return (
-            <html id="html">
+            <html>
                 <Head />
-                <body id="body">
+                <body>
                     <Header />
                     <div className="container">
                         <div className="row">
-                            <Sidebar className="col-lg-2"/>
                             <div className="col-lg-10">
                                 <RouteHandler data={this.getData()} />
                             </div>

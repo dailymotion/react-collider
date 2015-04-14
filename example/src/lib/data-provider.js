@@ -1,5 +1,4 @@
 import request from 'superagent'
-import Promise from 'bluebird'
 
 // @todo initialData must be an object
 export default function(name, url) {
@@ -11,8 +10,13 @@ export default function(name, url) {
         }
         else {
             request.get(url).end(function(err, data) {
-                resolve(data.text)
-            })
+                if (err) {
+                    resolve('')
+                }
+                else {
+                    resolve(data.text)
+                }
+            });
         }
     })
 }

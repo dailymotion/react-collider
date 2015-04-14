@@ -23,10 +23,12 @@ var cleanData = function(data) {
  */
 var runRouter = function(routes, routerArg, cb) {
     var routerCallback = function(Handler, state) {
-        var fetches = []
+        var components = [],
+            fetches    = []
 
         if (typeof routes.props.handler.getDependencies === 'function') {
             routes.props.handler.getDependencies().forEach(function(dep) {
+                components.push(dep.name)
                 if (typeof dep.fetchData === 'function') {
                     fetches.push(dep.fetchData())
                 }
@@ -35,13 +37,23 @@ var runRouter = function(routes, routerArg, cb) {
 
         state.routes.forEach(function(matchedRoute) {
             if (typeof matchedRoute.handler.fetchData === 'function') {
+                components.push(matchedRoute.handler.name)
                 fetches.push(matchedRoute.handler.fetchData())
             }
         })
 
         if (fetches.length) {
             fetches.push(function() {
-                cb(Handler, Array.prototype.slice.call(arguments))
+                var args = Array.prototype.slice.call(arguments),
+                    data = {},
+                    i = 0
+
+                components.forEach(function(component) {
+                    data[component] = args[i]
+                    i++
+                })
+
+                cb(Handler, data)
             })
 
             join.apply(null, fetches)

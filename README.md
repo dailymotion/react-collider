@@ -86,11 +86,11 @@ var Home = React.createClass({
     render: function() {
         return (
             <div>
-                <Sidebar data={this.props.data.sidebarData} />
+                <Sidebar data={this.props.data.Sidebar} />
                 <div>
                     <h1>Homepage</h1>
                 </div>
-                <Footer data={this.props.data.footerData} />
+                <Footer data={this.props.data.Footer} />
             </div>
         )
     }

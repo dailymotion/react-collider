@@ -1,35 +1,29 @@
-body
-{
+body {
     margin: 0;
     padding: 0px;
 }
 
-.content
-{
+.content {
     padding: 20px;
 }
-header
-{
+header {
     width: 100%;
     top: 0px;
     height: 60px;
     background-color: #0066DC;
 }
 
-header img
-{
+header img {
     height: 60px;
     margin-left: 20px;
 }
 
-header a
-{
-    margin-right:20px;
+header a {
+    margin-right: 20px;
     color: #FFF;
 }
 
-footer
-{
+footer {
     width: 100%;
     bottom: 0px;
     height: 60px;
@@ -41,6 +35,5 @@ footer
 }
 
 .player {
-    display: block;
     margin: 30px auto;
 }

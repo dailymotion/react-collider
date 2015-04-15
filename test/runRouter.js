@@ -16,7 +16,14 @@ describe('Run Router', function() {
         })
     })
 
-    it('should return an object with components as keys and data', function(done) {
+    it('should return an object with components as keys and data - Video', function(done) {
+        runRouter(routes, '/', function(Handler, data) {
+            expect(data).to.have.all.keys('Sidebar', 'HomeContent')
+            done()
+        })
+    })
+
+    it('should return an object with components as keys and data - Home', function(done) {
         runRouter(routes, '/video', function(Handler, data) {
             expect(data).to.have.all.keys('Sidebar', 'Video')
             done()

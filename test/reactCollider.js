@@ -20,6 +20,10 @@ describe('React Collider', function() {
         expect(collider.client).to.be.a('function')
     })
 
+    it('should export a collider function', function() {
+        expect(collider.collider).to.be.a('function')
+    })
+
     it('should render a page with no data', function(done) {
         request(server)
         .get('/')

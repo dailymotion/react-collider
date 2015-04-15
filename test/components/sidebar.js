@@ -3,30 +3,30 @@ var React = require('react'),
     path = require('path'),
     Promise = require('bluebird')
 
-var Video = React.createClass({
-    displayName: 'Video',
+var Sidebar = React.createClass({
+    displayName: 'Sidebar',
     statics: {
         fetchData: function() {
             return new Promise(function(resolve) {
                 fs.readFile(path.join(__dirname, 'fixtures.json'), 'utf-8', function(err, data) {
-                    resolve(JSON.parse(data).title)
+                    resolve(JSON.parse(data).sidebarContent)
                 })
             })
         }
     },
     componentWillMount: function() {
-        this.setState({video: this.props.data.Video})
+        this.setState({data: this.props.data})
     },
-    getVideoTitle: function() {
-        return this.state.video ? this.state.video : ''
+    getSidebarContent: function() {
+        return this.state.data ? this.state.data : ''
     },
     render: function() {
         return (
             React.createElement('div', null,
-                React.createElement('h1', null, this.getVideoTitle())
+                React.createElement('div', null, this.getSidebarContent())
             )
         )
     }
 })
 
-module.exports = Video
+module.exports = Sidebar

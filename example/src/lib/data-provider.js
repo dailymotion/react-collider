@@ -1,11 +1,10 @@
 import request from 'superagent'
 
-// @todo initialData must be an object
 export default function(name, url) {
     return new Promise(function(resolve) {
         if (typeof initialData !== 'undefined' && initialData !== null) {
-            var data = initialData
-            initialData = null
+            var data = initialData[name]
+            initialData[name] = null
             resolve(data)
         }
         else {

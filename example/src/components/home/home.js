@@ -3,6 +3,8 @@ import VideoPreview from './../video/preview'
 import provider from './../../lib/data-provider'
 
 export default class Home extends React.Component {
+    displayName: 'Home'
+    static displayName: 'Home'
     static getIds() {
         return 'x2mb4y5,+x2mb373,+x2mmd5u'
     }
@@ -16,19 +18,11 @@ export default class Home extends React.Component {
             self.setState({videos: data})
         })
     }
-    outputScript() {
-        var data = this.props.data
-        if (typeof data === 'object') {
-            data = JSON.stringify(data)
-        }
-
-        return {__html: "var initialData = " + data}
-    }
     getVideosList(cb) {
         var videos = '',
             i = 0
 
-        var data = this.props.data
+        var data = this.props.data.Home
 
         if (typeof data === 'string') {
             data = JSON.parse(data)
@@ -45,9 +39,8 @@ export default class Home extends React.Component {
     render() {
         return (
             <div>
-                <h1>Homepage</h1>
+                <h1>Videos</h1>
                 {this.state.videos}
-                <script dangerouslySetInnerHTML={this.outputScript()} />
             </div>
         )
     }

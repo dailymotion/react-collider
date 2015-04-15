@@ -4,15 +4,22 @@ var React = require('react'),
     RouteHandler = Router.RouteHandler,
     Home = require('./components/home'),
     Page = require('./components/page'),
-    Video = require('./components/video')
+    Video = require('./components/video'),
+    Sidebar = require('./components/sidebar')
 
 var App = React.createClass({
+    statics: {
+        getDependencies: function() {
+            return [Sidebar]
+        }
+    },
     getData: function() {
         return this.props.data || {}
     },
     render: function() {
         return (
             React.createElement('div', null,
+                React.createElement(Sidebar, {data: this.getData()}),
                 React.createElement(RouteHandler, {data: this.getData()})
             )
         )

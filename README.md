@@ -8,6 +8,11 @@ Check out the `example` folder for a working example, including data-fetching fr
 
     $ npm install --save react-collider
 
+## Features
+
+- Handle server and client side rendering
+- Takes care of data fetching when needed
+
 ## Usage
 
 ### Server side
@@ -60,6 +65,32 @@ var Home = React.createClass({
             <div>
                 <h1>Homepage</h1>
                 {videos}
+            </div>
+        )
+    }
+})
+```
+
+When your component includes another component which needs data too, define a `getDependencies` static method to return an array of components:
+
+```javascript
+var Sidebar = require('./sidebar'),
+    Footer  = require('./footer')
+
+var Home = React.createClass({
+    statics: {
+        getDependencies: function() {
+            return [Sidebar, Footer]
+        }
+    },
+    render: function() {
+        return (
+            <div>
+                <Sidebar data={this.props.data.Sidebar} />
+                <div>
+                    <h1>Homepage</h1>
+                </div>
+                <Footer data={this.props.data.Footer} />
             </div>
         )
     }

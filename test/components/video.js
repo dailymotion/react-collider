@@ -4,17 +4,18 @@ var React = require('react'),
     Promise = require('bluebird')
 
 var Video = React.createClass({
+    displayName: 'Video',
     statics: {
         fetchData: function() {
             return new Promise(function(resolve) {
                 fs.readFile(path.join(__dirname, 'fixtures.json'), 'utf-8', function(err, data) {
-                    resolve(JSON.parse(data))
+                    resolve(JSON.parse(data).title)
                 })
             })
         }
     },
     componentWillMount: function() {
-        this.setState({video: this.props.data[0].title})
+        this.setState({video: this.props.data.Video})
     },
     getVideoTitle: function() {
         return this.state.video ? this.state.video : ''

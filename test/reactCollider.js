@@ -13,11 +13,11 @@ describe('React Collider', function() {
     })
 
     it('should export a server function', function() {
-        assert(typeof collider.server, 'function')
+        expect(collider.server).to.be.a('function')
     })
 
     it('should export a client function', function() {
-        assert(typeof collider.client, 'function')
+        expect(collider.client).to.be.a('function')
     })
 
     it('should render a page with no data', function(done) {

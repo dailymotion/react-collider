@@ -4,17 +4,18 @@ var React = require('react'),
     Promise = require('bluebird')
 
 var Sidebar = React.createClass({
+    displayName: 'Sidebar',
     statics: {
         fetchData: function() {
             return new Promise(function(resolve) {
                 fs.readFile(path.join(__dirname, 'fixtures.json'), 'utf-8', function(err, data) {
-                    resolve(JSON.parse(data))
+                    resolve(JSON.parse(data).sidebarContent)
                 })
             })
         }
     },
     componentWillMount: function() {
-        this.setState({data: this.props.data[0].sidebarContent})
+        this.setState({data: this.props.data})
     },
     getSidebarContent: function() {
         return this.state.data ? this.state.data : ''

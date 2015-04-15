@@ -2,6 +2,7 @@ import React from 'react'
 import provider from './../../../lib/data-provider'
 
 export default class Sidebar extends React.Component {
+    displayName: 'Sidebar'
     static getIds() {
         return 'xlnf0t,+x1wd0c,+x1d6bdd'
     }
@@ -24,7 +25,7 @@ export default class Sidebar extends React.Component {
             data = JSON.parse(data)
         }
 
-        if (typeof data === 'object' && typeof data.list !== 'undefined') {
+        if (data !== null && typeof data === 'object' && typeof data.list !== 'undefined') {
             users = data.list.map(function(user) {
                 return (
                     <div className="row user" key={i++}>

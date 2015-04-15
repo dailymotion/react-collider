@@ -3,6 +3,7 @@ import Player from './../player/player'
 import provider from './../../lib/data-provider'
 
 export default class Video extends React.Component {
+    displayName: 'Video'
     static getVideoId() {
         return 'x2dsjzl'
     }

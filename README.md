@@ -52,6 +52,7 @@ Example of a simple component:
 
 ```javascript
 var Home = React.createClass({
+    displayName: 'Home',
     statics: {
         fetchData: function() {
             // returns a promise
@@ -78,6 +79,7 @@ var Sidebar = require('./sidebar'),
     Footer  = require('./footer')
 
 var Home = React.createClass({
+    displayName: 'Home',
     statics: {
         getDependencies: function() {
             return [Sidebar, Footer]

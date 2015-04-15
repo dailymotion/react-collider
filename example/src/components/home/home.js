@@ -28,7 +28,7 @@ export default class Home extends React.Component {
             data = JSON.parse(data)
         }
 
-        if (typeof data === 'object' && typeof data.list !== 'undefined') {
+        if (data !== null && typeof data === 'object' && typeof data.list !== 'undefined') {
             videos = data.list.map(function(video) {
                 return <VideoPreview key={i++} video={video} />
             })

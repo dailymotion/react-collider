@@ -10,9 +10,6 @@ export default class Html extends React.Component {
     static getDependencies() {
         return [Sidebar]
     }
-    getData() {
-        return this.props.data || {}
-    }
     outputScript() {
         var data = this.props.data
         if (typeof data === 'object') {

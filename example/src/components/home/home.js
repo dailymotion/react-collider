@@ -3,6 +3,8 @@ import VideoPreview from './../video/preview'
 import provider from './../../lib/data-provider'
 
 export default class Home extends React.Component {
+    displayName: 'Home'
+    static displayName: 'Home'
     static getIds() {
         return 'x2mb4y5,+x2mb373,+x2mmd5u'
     }
@@ -37,7 +39,7 @@ export default class Home extends React.Component {
     render() {
         return (
             <div>
-                <h1>Homepage</h1>
+                <h1>Videos</h1>
                 {this.state.videos}
             </div>
         )

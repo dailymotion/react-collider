@@ -17,6 +17,7 @@
     "browserify": "^9.0.3",
     "express": "^4.12.3",
     "gulp": "^3.8.11",
+    "json-stable-stringify": "^1.0.0",
     "node-jsx": "^0.12.4",
     "react": "^0.13.1",
     "react-collider": "*",

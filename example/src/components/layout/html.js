@@ -4,6 +4,7 @@ import Head from './head/head'
 import Header from './header/header'
 import Footer from './footer/footer'
 import Sidebar from './sidebar/sidebar'
+import stringify from 'json-stable-stringify'
 
 export default class Html extends React.Component {
     static getDependencies() {
@@ -15,13 +16,12 @@ export default class Html extends React.Component {
     outputScript() {
         var data = this.props.data
         if (typeof data === 'object') {
-            data = JSON.stringify(data)
+            data = stringify(data)
         }
 
         return {__html: "var initialData = " + data}
     }
     render() {
-        // <script dangerouslySetInnerHTML={this.outputScript()} />
         return (
             <html>
                 <Head />
@@ -36,6 +36,7 @@ export default class Html extends React.Component {
                         </div>
                     </div>
                     <Footer />
+                    <script dangerouslySetInnerHTML={this.outputScript()} />
                     <script src="/bundle.js"></script>
                 </body>
             </html>

@@ -2,10 +2,10 @@ import request from 'superagent'
 
 export default function(name, url, once) {
     return new Promise(function(resolve) {
-        if (typeof initialData === 'object' && initialData[name] !== null) {
+        if (typeof initialData === 'object' && typeof initialData[name] !== 'undefined') {
             var data = initialData[name]
             if (once) {
-                initialData[name] = null
+                initialData[name] = undefined
             }
             resolve(data)
         }

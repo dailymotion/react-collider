@@ -7,7 +7,8 @@ export default class Video extends React.Component {
         return 'x2dsjzl'
     }
     static fetchData() {
-        return provider('video', 'https://api.dailymotion.com/video/' + Video.getVideoId() + '?fields=id,title', true)
+        var url = 'https://api.dailymotion.com/video/' + Video.getVideoId() + '?fields=id,title'
+        return provider('Video', url, true)
     }
     componentWillMount() {
         this.setState({video: this.getVideo()})

@@ -4,14 +4,14 @@ Express middleware for isomorphic Express + React apps.
 
 Check out the `example` folder for a working example, including data-fetching from the Dailymotion API.
 
-## Installation
-
-    $ npm install --save react-collider
-
 ## Features
 
 - Handle server and client side rendering
 - Takes care of data fetching when needed
+
+## Installation
+
+    $ npm install --save react-collider
 
 ## Usage
 
@@ -100,3 +100,7 @@ var Home = React.createClass({
 ```
 
 **Important:** If you're not using es6 to write your components, be sure to define the `displayName` of your components. This is necessary for the module to correctly return the data.
+
+### Client side app only
+
+If your servers are down and you can't pre-render the pages server-side, your app will still work client side (assuming your API is okay). All you need is to send a basic html file with your app bundled. Check out the `example` folder for an example.

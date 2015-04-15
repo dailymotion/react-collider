@@ -14,3 +14,12 @@ Example app for react-collider.
     $ gulp
 
 Then open your browser at [localhost:3000](http://localhost:3000)
+
+## Client side only app
+
+To test the app without server-side rendering, cd into the public directory, launch a server and open your browser at [localhost:8000](http://localhost:8000).
+
+    # Build the bundle
+    $ gulp
+
+    $ cd public; python -m SimpleHTTPServer

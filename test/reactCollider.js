@@ -13,11 +13,11 @@ describe('React Collider', function() {
     })
 
     it('should export a server function', function() {
-        assert(typeof collider.server, 'function')
+        expect(collider.server).to.be.a('function')
     })
 
     it('should export a client function', function() {
-        assert(typeof collider.client, 'function')
+        expect(collider.client).to.be.a('function')
     })
 
     it('should render a page with no data', function(done) {
@@ -45,6 +45,26 @@ describe('React Collider', function() {
         .expect(200)
         .expect(function(res) {
             expect(res.text).to.have.string('Cool video with kitten')
+        })
+        .end(done)
+    })
+
+    it('should fetch data for the router main handler children', function(done) {
+        request(server)
+        .get('/')
+        .expect(200)
+        .expect(function(res) {
+            expect(res.text).to.have.string('Sidebar content')
+        })
+        .end(done)
+    })
+
+    it('should fetch data for the routes handler children', function(done) {
+        request(server)
+        .get('/')
+        .expect(200)
+        .expect(function(res) {
+            expect(res.text).to.have.string('Home children content')
         })
         .end(done)
     })

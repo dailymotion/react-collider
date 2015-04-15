@@ -1,3 +1,5 @@
 {
-    "title": "Cool video with kitten"
+    "title": "Cool video with kitten",
+    "homeContent": "Home children content",
+    "sidebarContent": "Sidebar content"
 }

@@ -99,4 +99,4 @@ var Home = React.createClass({
 })
 ```
 
-**Important** If you're not using es6 to write your components, be sure to define the `displayName` of your components. This is necessary for the module to correctly return the data.
+**Important:** If you're not using es6 to write your components, be sure to define the `displayName` of your components. This is necessary for the module to correctly return the data.

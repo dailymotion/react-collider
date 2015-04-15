@@ -2,12 +2,11 @@ import React from 'react'
 import provider from './../../../lib/data-provider'
 
 export default class Sidebar extends React.Component {
-    displayName: 'Sidebar'
     static getIds() {
         return 'xlnf0t,+x1wd0c,+x1d6bdd'
     }
     static fetchData() {
-        return provider('sidebar-users', 'https://api.dailymotion.com/users?fields=avatar_240_url,username&ids=' + Sidebar.getIds())
+        return provider('Sidebar', 'https://api.dailymotion.com/users?fields=avatar_240_url,username&ids=' + Sidebar.getIds(), true)
     }
     componentWillMount() {
         var self = this

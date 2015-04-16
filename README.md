@@ -7,7 +7,11 @@ Check out the `example` folder for a working example, including data-fetching fr
 ## Features
 
 - Handle server and client side rendering
+- First call is done server side, subsequent calls use only api
 - Takes care of data fetching when needed
+- possibility to serve your app by a cdn
+- Data fetching is done at the component level
+- seo ready
 
 ## Installation
 

@@ -1,8 +1,8 @@
 {
   "name": "react-collider",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Express middleware for isomorphic express + react apps",
-  "main": "lib/reactCollider.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/dailymotion/react-collider.git"
@@ -16,15 +16,35 @@
     "bluebird": "^2.9.21",
     "lodash.includes": "^3.1.0",
     "parseurl": "^1.3.0",
+    "ramda": "^0.13.0",
     "react": "^0.13.1",
-    "react-router": "^0.13.2"
+    "react-router": "^0.13.2",
+    "superagent": "^1.2.0"
   },
   "devDependencies": {
     "chai": "^2.2.0",
+    "jshint": "^2.7.0",
     "mocha": "^2.2.1",
     "supertest": "^0.15.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha"
-  }
+    "test": "./node_modules/.bin/mocha",
+    "jshint": "./node_modules/.bin/jshint lib",
+    "start": "node test.js"
+  },
+  "tags": [
+    "react",
+    "isomorphic"
+  ],
+  "keywords": [
+    "react",
+    "isomorphic",
+    "express",
+    "routing",
+    "router"
+  ],
+  "authors": [
+    "Romain Berger",
+    "Nadir Kadem"
+  ]
 }

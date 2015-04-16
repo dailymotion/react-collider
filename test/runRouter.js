@@ -1,7 +1,7 @@
 var assert   = require('chai').assert,
     expect   = require('chai').expect,
     routes   = require('./routing'),
-    runRouter = require('../lib/runRouter')
+    runRouter = require('..').collider
 
 describe('Run Router', function() {
     it('should export a function', function() {

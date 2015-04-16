@@ -1,6 +1,6 @@
-# React-collider
+# React-collider [![Build Status](https://secure.travis-ci.org/dailymotion/react-collider.png)](http://travis-ci.org/dailymotion/react-collider)
 
-Express middleware for isomorphic Express + React apps. Also usable for any [NodeJs app without Express](https://github.com/Youpinadi/react-collider#usage-without-express).
+Express middleware for isomorphic Express + React apps. Also usable for any [NodeJs app without Express](https://github.com/dailymotion/react-collider#usage-without-express).
 
 Check out the `example` folder for a working example, including data-fetching from the Dailymotion API.
 

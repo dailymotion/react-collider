@@ -13,7 +13,7 @@ export default class Footer extends React.Component {
                             by <a href="http://dailymotion.com">Dailymotion</a>
                         </div>
                         <div className="col-sm-3">
-                            <a className="btn btn-default" href="https://github.com/youpinadi/react-collider">View on GitHub</a>
+                            <a className="btn btn-default" href="https://github.com/dailymotion/react-collider">View on GitHub</a>
                         </div>
                     </div>
                 </div>

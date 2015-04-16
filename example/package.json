@@ -26,6 +26,7 @@
     "superagent": "^1.1.0"
   },
   "devDependencies": {
+    "gulp-babel": "^5.1.0",
     "gulp-sourcemaps": "^1.5.1",
     "gulp-util": "^3.0.4",
     "vinyl-buffer": "^1.0.0",

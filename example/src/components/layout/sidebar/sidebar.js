@@ -6,13 +6,10 @@ export default class Sidebar extends React.Component {
         return 'xlnf0t,+x1wd0c,+x1d6bdd'
     }
     static fetchData() {
-        return provider('Sidebar', 'https://api.dailymotion.com/users?fields=avatar_240_url,username&ids=' + Sidebar.getIds(), true)
+        return provider('Sidebar', 'https://api.dailymotion.com/users?fields=avatar_240_url,username&ids=' + Sidebar.getIds(), false)
     }
     componentWillMount() {
-        var self = this
-        this.getUsersList(function(data) {
-            self.setState({users: data})
-        })
+        this.getUsersList((data) => this.setState({users: data}))
     }
     getUsersList(cb) {
         var users = '',

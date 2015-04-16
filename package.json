@@ -5,13 +5,13 @@
   "main": "lib/reactCollider.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Youpinadi/react-collider.git"
+    "url": "https://github.com/dailymotion/react-collider.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Youpinadi/react-collider/issues"
+    "url": "https://github.com/dailymotion/react-collider/issues"
   },
-  "homepage": "https://github.com/Youpinadi/react-collider",
+  "homepage": "https://github.com/dailymotion/react-collider",
   "dependencies": {
     "bluebird": "^2.9.21",
     "lodash.includes": "^3.1.0",

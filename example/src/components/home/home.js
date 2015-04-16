@@ -11,10 +11,7 @@ export default class Home extends React.Component {
         return provider('Home', url, true)
     }
     componentWillMount() {
-        var self = this
-        this.getVideosList(function(data) {
-            self.setState({videos: data})
-        })
+        this.getVideosList((data) => this.setState({videos: data}))
     }
     getVideosList(cb) {
         var videos = '',

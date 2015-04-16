@@ -1,6 +1,6 @@
 import React from 'react'
 import Player from './../player/player'
-import provider from './../../lib/data-provider'
+import {dataProvider as provider} from 'react-collider'
 
 export default class Video extends React.Component {
     static getVideoId() {
@@ -8,7 +8,7 @@ export default class Video extends React.Component {
     }
     static fetchData() {
         var url = 'https://api.dailymotion.com/video/' + Video.getVideoId() + '?fields=id,title'
-        return provider('Video', url, true)
+        return provider(this, url)
     }
     componentWillMount() {
         this.setState({video: this.getVideo()})

@@ -1,12 +1,12 @@
 import React from 'react'
-import provider from './../../../lib/data-provider'
+import {dataProvider as provider} from 'react-collider'
 
 export default class Sidebar extends React.Component {
     static getIds() {
         return 'xlnf0t,+x1wd0c,+x1d6bdd'
     }
     static fetchData() {
-        return provider('Sidebar', 'https://api.dailymotion.com/users?fields=avatar_240_url,username&ids=' + Sidebar.getIds(), false)
+        return provider(this, 'https://api.dailymotion.com/users?fields=avatar_240_url,username&ids=' + Sidebar.getIds())
     }
     componentWillMount() {
         this.getUsersList((data) => this.setState({users: data}))

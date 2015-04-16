@@ -114,9 +114,9 @@ The `dataProvider` module allows data fetching from a url or from the initial da
 - `component` React component. Used to store and retrieve the data in a local variable to prevent useless calls on the first page load, and for caching.
 - `url` Url to call
 - `options` Object. Available options:
-    - `once`: Removes the data from the local variable after use. This means the next time you call the same data it will fetch them remotely
-    - `forceFetch`: Fetches the data remotely even if the data are available locally
-    - `set`: Sets the data locally after fetching them remotely. The next time you need them they will be taken locally (unless you use the `forceFetch` option)
+    - `once`: Removes the data from the local variable after use. This means the next time you call the same data it will fetch them remotely. Default to false.
+    - `forceFetch`: Fetches the data remotely even if the data are available locally. Default to false.
+    - `set`: Sets the data locally after fetching them remotely. The next time you need them they will be taken locally (unless you use the `forceFetch` option). Default to false.
 
 ```javascript
 var provider = require('react-collider').dataProvider

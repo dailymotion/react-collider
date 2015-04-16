@@ -1,6 +1,6 @@
 {
   "name": "react-collider",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Express middleware for isomorphic express + react apps",
   "main": "lib/index.js",
   "repository": {
@@ -30,5 +30,20 @@
     "test": "./node_modules/.bin/mocha",
     "jshint": "./node_modules/.bin/jshint lib",
     "start": "node test.js"
-  }
+  },
+  "tags": [
+    "react",
+    "isomorphic"
+  ],
+  "keywords": [
+    "react",
+    "isomorphic",
+    "express",
+    "routing",
+    "router"
+  ],
+  "authors": [
+    "Romain Berger",
+    "Nadir Kadem"
+  ]
 }

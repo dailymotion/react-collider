@@ -105,6 +105,32 @@ var Home = React.createClass({
 
 **Important:** If you're not using es6 to write your components, be sure to define the `displayName` of your components. This is necessary for the module to correctly return the data.
 
+## Data Provider
+
+The `dataProvider` module allows data fetching from a url or from the initial data fetched server-side.
+
+###`dataProvider(component, url, options)`
+
+- `component` React component. Used to store and retrieve the data in a local variable to prevent useless calls on the first page load, and for caching.
+- `url` Url to call
+- `options` Object. Available options:
+    - `once`: Removes the data from the local variable after use. This means the next time you call the same data it will fetch them remotely
+    - `forceFetch`: Fetches the data remotely even if the data are available locally
+    - `set`: Sets the data locally after fetching them remotely. The next time you need them they will be taken locally (unless you use the `forceFetch` option)
+
+```javascript
+var provider = require('react-collider').dataProvider
+
+var Home = React.createClass({
+    displayName: 'Home',
+    statics: {
+        fetchData: function() {
+            return provider(this, 'http://api.dailymotion.com/videos?fields=id,title', {once: true})
+        }
+    }
+})
+```
+
 ## Client side app only
 
 If your servers are down and you can't pre-render the pages server-side, your app will still work client side (assuming your API is okay). All you need is to send a basic html file with your app bundled. Check out the `example` folder for an example.

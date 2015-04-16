@@ -13,27 +13,21 @@
   "homepage": "https://github.com/Youpinadi/react-collider",
   "dependencies": {
     "babel": "^5.0.6",
-    "babelify": "^6.0.1",
-    "browserify": "^9.0.3",
     "express": "^4.12.3",
-    "gulp": "^3.8.11",
     "json-stable-stringify": "^1.0.0",
     "node-jsx": "^0.12.4",
     "react": "^0.13.1",
     "react-collider": "*",
     "react-router": "^0.13.2",
-    "reactify": "^1.1.0",
-    "superagent": "^1.1.0"
-  },
-  "devDependencies": {
-    "gulp-babel": "^5.1.0",
-    "gulp-sourcemaps": "^1.5.1",
-    "gulp-util": "^3.0.4",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
-    "watchify": "^2.4.0"
+    "superagent": "^1.1.0",
+    "webpack": "^1.8.4",
+    "babel-core": "^5.1.10",
+    "babel-loader": "^5.0.0",
+    "jsx-loader": "^0.13.1"
   },
   "scripts": {
-    "start": "./node_modules/.bin/babel-node server.js"
+    "start": "./node_modules/.bin/babel-node server.js",
+    "webpack": "./node_modules/.bin/webpack --progress --colors --display-error-details --config ./src/entry.js --watch",
+    "build": "./node_modules/.bin/webpack -p --progress --colors --display-error-details --config ./src/entry.js --watch"
   }
 }

@@ -7,11 +7,11 @@ Example app for react-collider.
     # Install the dependencies
     $ npm install
 
+    # Build webpack
+    $ npm run webpack
+
     # Run the server
     $ npm start
-
-    # Run gulp for browserify
-    $ gulp
 
 Then open your browser at [localhost:3000](http://localhost:3000)
 
@@ -29,6 +29,6 @@ To test the app without server-side rendering, cd into the public directory, cre
 ```
 
     # Build the bundle
-    $ gulp
+    $ npm run webpack
 
     $ cd public; python -m SimpleHTTPServer

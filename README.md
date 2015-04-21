@@ -125,7 +125,7 @@ var Home = React.createClass({
     displayName: 'Home',
     statics: {
         fetchData: function() {
-            return provider(this, 'http://api.dailymotion.com/videos?fields=id,title', {once: true})
+            return provider(this, 'https://api.dailymotion.com/videos?fields=id,title', {once: true})
         }
     }
 })

@@ -162,7 +162,7 @@ var routes   = require('./routing'),
 app.use(collider(routes), customFetchHandler)
 ```
 
-You will be able to handle the components the way you want. Check out `collider-particle` to see an example.
+You will be able to handle the components the way you want. Check out the [default fetch handler](https://github.com/dailymotion/react-collider/blob/master/lib/defaultFetchHandler.js) to see an example.
 
 ```javascript
 module.exports = function fetchHandler(components) {

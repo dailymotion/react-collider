@@ -37,6 +37,7 @@ describe('Run Router with custom fetch handler', function() {
             return new Promise(function(resolve) {
                 expect(components).to.be.a('array')
                 expect(components.length).to.equal(2)
+                expect(components[0]).to.be.a('function')
                 done()
                 resolve({})
             })

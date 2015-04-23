@@ -150,3 +150,32 @@ collider(routes, url, function(Handler, data) {
     var page = React.renderToString(React.createElement(Handler, {data: data}))
 })
 ```
+
+## Custom data fetching
+
+By default the module runs every `fetchData` methods of the components. If you need to handle yourself the data fetching you can pass a custom module that will receive an array of components needing to fetch data. It must return a promise.
+
+```javascript
+var routes   = require('./routing'),
+    customFetchHandler = require('./fetch-handler')
+
+app.use(collider(routes), customFetchHandler)
+```
+
+You will be able to handle the components the way you want. Check out `collider-particle` to see an example.
+
+```javascript
+module.exports = function fetchHandler(components) {
+    return new Promise(function(resolve) {
+        var dataSet = {}
+
+        components.forEach(function(component) {
+            component.fetchData().then(function(data) {
+                //
+            })
+        })
+
+        resolve(dataSet)
+    })
+}
+```

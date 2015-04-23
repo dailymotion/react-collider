@@ -165,14 +165,14 @@ app.use(collider(routes), customFetchHandler)
 You will be able to handle the components the way you want. Check out the [default fetch handler](https://github.com/dailymotion/react-collider/blob/master/lib/defaultFetchHandler.js) to see an example.
 
 ```javascript
+var Promise = require('bluebird')
+
 module.exports = function fetchHandler(components) {
     return new Promise(function(resolve) {
         var dataSet = {}
 
         components.forEach(function(component) {
-            component.fetchData().then(function(data) {
-                //
-            })
+            // handle the data fetching the way you want
         })
 
         resolve(dataSet)

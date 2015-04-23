@@ -155,16 +155,21 @@ collider(routes, url, function(Handler, data) {
 
 By default the module runs every `fetchData` methods of the components. If you need to handle yourself the data fetching you can pass a custom module that will receive an array of components needing to fetch data. It must return a promise.
 
+You can use a custom fetch handler for server as well as client side. You can obviously choose to use a custom fetch handler server side but not client side (or the opposite), or a different one.
+
 ```javascript
 var routes   = require('./routing'),
     customFetchHandler = require('./fetch-handler')
 
+// server side
 app.use(collider(routes), customFetchHandler)
+
+// or client side
+collider(routes, customFetchHandler)
 ```
 
-You will be able to handle the components the way you want. Check out the [default fetch handler](https://github.com/dailymotion/react-collider/blob/master/lib/defaultFetchHandler.js) to see an example.
-
 ```javascript
+// Custom fetch handler
 var Promise = require('bluebird')
 
 module.exports = function fetchHandler(components) {
@@ -179,3 +184,5 @@ module.exports = function fetchHandler(components) {
     })
 }
 ```
+
+You will be able to handle the components the way you want. Check out the [default fetch handler](https://github.com/dailymotion/react-collider/blob/master/lib/defaultFetchHandler.js) to see an example.

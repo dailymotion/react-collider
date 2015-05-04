@@ -162,10 +162,10 @@ var routes   = require('./routing'),
     customFetchHandler = require('./fetch-handler')
 
 // server side
-app.use(collider(routes), customFetchHandler)
+app.use(collider(routes), {fetch: customFetchHandler})
 
 // or client side
-collider(routes, customFetchHandler)
+collider(routes, {fetch: customFetchHandler})
 ```
 
 ```javascript

@@ -37,6 +37,18 @@ app.listen(port, function() {
 })
 ```
 
+#### Logging
+
+You can have informations in a log file:
+
+```javascript
+// logs to react-collider.log
+app.use(collider(routes, {log: true}))
+
+// logs to a custom file path
+app.use(collider(routes, {log: path.join(__dirname, 'server.log')}))
+```
+
 ### Client side
 
 Similar: call the client module with your routes.

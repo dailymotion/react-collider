@@ -5,6 +5,7 @@ var React = require('react'),
     Home = require('./components/home'),
     Page = require('./components/page'),
     Video = require('./components/video'),
+    User = require('./components/user'),
     Sidebar = require('./components/sidebar')
 
 var App = React.createClass({
@@ -30,7 +31,8 @@ var routes = (
     React.createElement(Route, {handler: App, path: '/'},
         React.createElement(Route, {name: 'home', handler: Home, path: '/'}),
         React.createElement(Route, {name: 'page', handler: Page, path: '/page'}),
-        React.createElement(Route, {name: 'video', handler: Video, path: '/video'})
+        React.createElement(Route, {name: 'video', handler: Video, path: '/video'}),
+        React.createElement(Route, {name: 'user', handler: User, path: '/user/:id'})
     )
 )
 

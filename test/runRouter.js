@@ -29,4 +29,12 @@ describe('Run Router', function() {
             done()
         })
     })
+
+    it('should ', function(done) {
+        runRouter(routes, '/user/1', function(Handler, data) {
+            expect(data).to.have.all.keys('Sidebar', 'User')
+            assert(data.User.user === '1', 'fail')
+            done()
+        })
+    })
 })

@@ -1,7 +1,7 @@
 var assert   = require('chai').assert,
     expect   = require('chai').expect,
     React    = require('react'),
-    provider = require('..').dataProvider
+    provider = require('../dataProvider')
 
 var Video = React.createClass({
     displayName: 'Video',

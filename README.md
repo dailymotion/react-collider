@@ -27,7 +27,7 @@ Simply add the server middleware in your express app, giving your routes as argu
 var express  = require('express'),
     app      = express(),
     port     = process.env.PORT || 3000,
-    collider = require('react-collider').server,
+    collider = require('react-collider/server'),
     routes   = require('./routing')
 
 app.use(collider(routes))
@@ -54,7 +54,7 @@ app.use(collider(routes, {log: path.join(__dirname, 'server.log')}))
 Similar: call the client module with your routes.
 
 ```javascript
-var collider = require('react-collider').client,
+var collider = require('react-collider/client'),
     routes   = require('./routing')
 
 collider(routes)
@@ -131,7 +131,7 @@ The `dataProvider` module allows data fetching from a url or from the initial da
     - `set`: Sets the data locally after fetching them remotely. The next time you need them they will be taken locally (unless you use the `forceFetch` option). Default to false.
 
 ```javascript
-var provider = require('react-collider').dataProvider
+var provider = require('react-collider/dataProvider')
 
 var Home = React.createClass({
     displayName: 'Home',
@@ -152,7 +152,7 @@ If your servers are down and you can't pre-render the pages server-side, your ap
 You can use react-collider wihtout express. You can simply use it to get the React component to render and the data to use:
 
 ```javascript
-var collider = require('react-collider').collider,
+var collider = require('react-collider'),
     routes = require('./routing')
 
 var url = '/video'

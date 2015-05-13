@@ -64,15 +64,17 @@ collider(routes)
 
 If your component must fetch some data before being rendered, use a `fetchData` static method. It must return a promise.
 
+The `fetchData` method will receive an argument being the params [from the router](http://rackt.github.io/react-router/#getting-the-url-parameters).
+
 Example of a simple component:
 
 ```javascript
 var Home = React.createClass({
     displayName: 'Home',
     statics: {
-        fetchData: function() {
+        fetchData: function(params) {
             // returns a promise
-            return getHomeData()
+            return getHomeData({userId: params.id})
         }
     },
     render: function() {
@@ -136,7 +138,7 @@ var provider = require('react-collider/dataProvider')
 var Home = React.createClass({
     displayName: 'Home',
     statics: {
-        fetchData: function() {
+        fetchData: function(params) {
             return provider(this, 'https://api.dailymotion.com/videos?fields=id,title', {once: true})
         }
     }

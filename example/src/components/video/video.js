@@ -1,6 +1,6 @@
 import React from 'react'
 import Player from './../player/player'
-import {dataProvider as provider} from 'react-collider'
+import provider from 'react-collider/dataProvider'
 
 export default class Video extends React.Component {
     static getVideoId() {

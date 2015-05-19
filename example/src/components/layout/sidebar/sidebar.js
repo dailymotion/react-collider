@@ -1,5 +1,5 @@
 import React from 'react'
-import {dataProvider as provider} from 'react-collider'
+import provider from 'react-collider/dataProvider'
 
 export default class Sidebar extends React.Component {
     static getIds() {

@@ -152,7 +152,7 @@ import routes   from './routing'
 var url = '/video'
 
 // simply provide your routes and the url
-collider(routes, url, (Handler, data) => {
+collider(routes, url, null, (Handler, data) => {
     var page = React.renderToString(React.createElement(Handler, {data: data}))
 })
 ```
@@ -178,12 +178,13 @@ collider(routes, {fetch: customFetchHandler})
 // Custom fetch handler
 var Promise = require('bluebird')
 
-module.exports = function fetchHandler(components) {
+module.exports = function fetchHandler(components, params) {
     return new Promise(function(resolve) {
         var dataSet = {}
 
         components.forEach(function(component) {
             // handle the data fetching the way you want
+            // component.fetchData(params)
         })
 
         resolve(dataSet)

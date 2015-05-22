@@ -120,7 +120,7 @@ The `dataProvider` module allows data fetching from a url or from the initial da
 
 ###`dataProvider(component, url, options)`
 
-- `component` React component. Used to store and retrieve the data in a local variable to prevent useless calls on the first page load, and for caching.
+- `expose` String. The name under which the data will be available
 - `url` Url to call
 - `options` Object. Available options:
     - `once`: Removes the data from the local variable after use. This means the next time you call the same data it will fetch them remotely. Default to false.
@@ -132,7 +132,7 @@ import provider from 'react-collider/dataProvider'
 
 class Video extends React.Component {
     static fetchData(params) {
-        return provider(this, `https://api.dailymotion.com/video/${params.id}?fields=id,title`, {once: true})
+        return provider('video', `https://api.dailymotion.com/video/${params.id}?fields=id,title`, {once: true})
     }
 }
 ```

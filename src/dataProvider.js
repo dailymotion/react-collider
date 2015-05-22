@@ -8,15 +8,14 @@ const defaultOptions = {
     set: false
 }
 
-export default function dataProvider(component, url, options) {
+export default function dataProvider(expose, url, options) {
     options = merge(defaultOptions, options)
-    var name = component.displayName || component.name
 
     return new Promise(function(resolve) {
-        if (!options.forceFetch && typeof initialData === 'object' && typeof initialData[name] !== 'undefined') {
-            var data = initialData[name]
+        if (!options.forceFetch && typeof initialData === 'object' && typeof initialData[expose] !== 'undefined') {
+            var data = initialData[expose]
             if (options.once) {
-                initialData[name] = undefined
+                initialData[expose] = undefined
             }
             resolve(data)
         }
@@ -32,7 +31,7 @@ export default function dataProvider(component, url, options) {
                 else {
                     if (options.set) {
                         initialData = initialData || {}
-                        initialData[name] = res.body
+                        initialData[expose] = res.body
                     }
 
                     resolve(res.body)

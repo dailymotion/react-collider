@@ -20,7 +20,7 @@ describe('Data Provider', function() {
     })
 
     it('should fetch data from a url', function(done) {
-        provider(Video, 'https://api.dailymotion.com/video/' + videoId + '?fields=id,title').then(function(data) {
+        provider('video', 'https://api.dailymotion.com/video/' + videoId + '?fields=id,title').then(function(data) {
             expect(data).to.be.an('object')
             expect(data.title).to.equal(videoData.title)
             done()
@@ -28,9 +28,9 @@ describe('Data Provider', function() {
     })
 
     it('should fetch data from local variable', function(done) {
-        global.initialData = {Video: localData}
+        global.initialData = {video: localData}
 
-        provider(Video, 'https://api.dailymotion.com/video/' + videoId + '?fields=id,title').then(function(data) {
+        provider('video', 'https://api.dailymotion.com/video/' + videoId + '?fields=id,title').then(function(data) {
             expect(data).to.be.an('object')
             expect(data.title).to.equal(localData.title)
             done()
@@ -38,12 +38,12 @@ describe('Data Provider', function() {
     })
 
     it('should fetch data from local variable without removing it', function(done) {
-        global.initialData = {Video: localData}
+        global.initialData = {video: localData}
 
-        provider(Video, 'https://api.dailymotion.com/video/' + videoId + '?fields=id,title', {once: false}).then(function(data) {
+        provider('video', 'https://api.dailymotion.com/video/' + videoId + '?fields=id,title', {once: false}).then(function(data) {
             expect(data.title).to.equal(localData.title)
 
-            provider(Video, 'https://api.dailymotion.com/video/' + videoId + '?fields=id,title').then(function(data) {
+            provider('video', 'https://api.dailymotion.com/video/' + videoId + '?fields=id,title').then(function(data) {
                 expect(data.title).to.equal(localData.title)
                 done()
             })
@@ -51,9 +51,9 @@ describe('Data Provider', function() {
     })
 
     it('should fetch data from local variable then remove it fetch from url', function(done) {
-        global.initialData = {Video: localData}
+        global.initialData = {video: localData}
 
-        provider(Video, 'https://api.dailymotion.com/video/' + videoId + '?fields=id,title', {once: true}).then(function(data) {
+        provider('video', 'https://api.dailymotion.com/video/' + videoId + '?fields=id,title', {once: true}).then(function(data) {
             expect(data.title).to.equal(localData.title)
 
             provider('Video', 'https://api.dailymotion.com/video/' + videoId + '?fields=id,title').then(function(data) {
@@ -64,9 +64,9 @@ describe('Data Provider', function() {
     })
 
     it('should force fetching from the url even the local data exists', function(done) {
-        global.initialData = {Video: localData}
+        global.initialData = {video: localData}
 
-        provider(Video, 'https://api.dailymotion.com/video/' + videoId + '?fields=id,title', {forceFetch: true}).then(function(data) {
+        provider('video', 'https://api.dailymotion.com/video/' + videoId + '?fields=id,title', {forceFetch: true}).then(function(data) {
             expect(data.title).to.equal(videoData.title)
             done()
         })
@@ -75,10 +75,10 @@ describe('Data Provider', function() {
     it('should set the variable locally', function(done) {
         global.initialData = {}
 
-        provider(Video, 'https://api.dailymotion.com/video/' + videoId + '?fields=id,title', {set: true}).then(function(data) {
+        provider('video', 'https://api.dailymotion.com/video/' + videoId + '?fields=id,title', {set: true}).then(function(data) {
             expect(data.title).to.equal(videoData.title)
 
-            provider(Video, 'https://api.dailymotion.com/video/' + otherId + '?fields=id,title').then(function(data) {
+            provider('video', 'https://api.dailymotion.com/video/' + otherId + '?fields=id,title').then(function(data) {
                 expect(data.title).to.equal(videoData.title)
                 done()
             })

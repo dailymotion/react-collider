@@ -11,7 +11,7 @@ var routes = (
     <Route handler={Html} path="/">
         <DefaultRoute handler={Home} />
         <Route name="home" handler={Home} path="/" />
-        <Route name="video" handler={Video} path="/video" />
+        <Route name="video" handler={Video} path="/video/:id" />
     </Route>
 )
 

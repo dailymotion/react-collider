@@ -4,8 +4,10 @@ var React = require('react'),
     Promise = require('bluebird')
 
 var Video = React.createClass({
-    displayName: 'Video',
     statics: {
+        expose: function() {
+            return 'video'
+        },
         fetchData: function() {
             return new Promise(function(resolve) {
                 fs.readFile(path.join(__dirname, 'fixtures.json'), 'utf-8', function(err, data) {

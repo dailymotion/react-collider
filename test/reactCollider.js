@@ -3,7 +3,7 @@ var expect    = require('chai').expect,
     Promise   = require('bluebird'),
     collider  = require('..')
 
-describe('Run Router', function() {
+describe('React Collider', function() {
     it('should export a function', function() {
         expect(collider).to.be.a('function')
     })
@@ -18,21 +18,21 @@ describe('Run Router', function() {
 
     it('should return an object with components as keys and data - Video', function(done) {
         collider(routes, '/', null, function(Handler, data) {
-            expect(data).to.have.all.keys('Sidebar', 'HomeContent')
+            expect(data).to.have.all.keys('sidebar', 'home-content')
             done()
         })
     })
 
     it('should return an object with components as keys and data - Home', function(done) {
         collider(routes, '/video', null, function(Handler, data) {
-            expect(data).to.have.all.keys('Sidebar', 'Video')
+            expect(data).to.have.all.keys('sidebar', 'video')
             done()
         })
     })
 
     it('should get the params', function(done) {
         collider(routes, '/user/1', null, function(Handler, data) {
-            expect(data).to.have.all.keys('Sidebar', 'User')
+            expect(data).to.have.all.keys('sidebar', 'User')
             expect(data.User.user).to.equal('1')
             done()
         })

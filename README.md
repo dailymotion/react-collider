@@ -63,14 +63,17 @@ collider(routes)
 
 ### Components
 
-If your component must fetch some data before being rendered, use a `fetchData` static method. It must return a promise.
+If your component must fetch some data before being rendered, use a `fetchData` static method. It must return a promise. The component also has to have a `expose` static method to know under which name the data will be exposed. If no `expose` method is available, it will use the `displayName` of the component.
 
-The `fetchData` method will receive an argument being the params [from the router](http://rackt.github.io/react-router/#getting-the-url-parameters).
+The `fetchData` and `expose` methods will receive an argument being the params [from the router](http://rackt.github.io/react-router/#getting-the-url-parameters).
 
 Example of a simple component:
 
 ```javascript
 export default class Home extends React.Component {
+    static expose(params) {
+        return `home-user-${params.id}`
+    }
     static fetchData(params) {
         // returns a promise
         return getHomeData({userId: params.id})
@@ -112,15 +115,13 @@ export default class Home extends React.Component {
 }
 ```
 
-**Important:** If you're not using es6 to write your components, be sure to define the `displayName` of your components. This is necessary for the module to correctly return the data.
-
 ## Data Provider
 
 The `dataProvider` module allows data fetching from a url or from the initial data fetched server-side.
 
 ###`dataProvider(component, url, options)`
 
-- `component` React component. Used to store and retrieve the data in a local variable to prevent useless calls on the first page load, and for caching.
+- `expose` String. The name under which the data will be available
 - `url` Url to call
 - `options` Object. Available options:
     - `once`: Removes the data from the local variable after use. This means the next time you call the same data it will fetch them remotely. Default to false.
@@ -131,8 +132,11 @@ The `dataProvider` module allows data fetching from a url or from the initial da
 import provider from 'react-collider/dataProvider'
 
 class Video extends React.Component {
+    static expose() {
+        return 'video'
+    }
     static fetchData(params) {
-        return provider(this, `https://api.dailymotion.com/video/${params.id}?fields=id,title`, {once: true})
+        return provider(Video.expose(), `https://api.dailymotion.com/video/${params.id}?fields=id,title`, {once: true})
     }
 }
 ```

@@ -6,6 +6,9 @@ var React = require('react'),
 var HomeContent = React.createClass({
     displayName: 'HomeContent',
     statics: {
+        expose: function() {
+            return 'home-content'
+        },
         fetchData: function() {
             return new Promise(function(resolve) {
                 fs.readFile(path.join(__dirname, 'fixtures.json'), 'utf-8', function(err, data) {

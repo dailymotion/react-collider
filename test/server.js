@@ -4,7 +4,7 @@ var expect   = require('chai').expect,
     collider = require('../server'),
     routes   = require('./routing')
 
-describe('React Collider', function() {
+describe('Server', function() {
     var server
 
     before(function() {

@@ -8,7 +8,8 @@ export default function defaultFetchHandler(components, params) {
 
         components.forEach(function(component) {
             if (typeof component.fetchData === 'function') {
-                var name = component.displayName || component.name
+                var displayName = component.displayName || component.name,
+                    name = typeof component.expose === 'function' ? component.expose(params) : displayName
                 if (!contains(name)(components)) {
                     componentsName.push(name)
                     fetches.push(component.fetchData(params))

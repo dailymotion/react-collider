@@ -28,7 +28,8 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha",
-    "jshint": "./node_modules/.bin/jshint lib"
+    "jshint": "./node_modules/.bin/jshint lib",
+    "babel": "./node_modules/.bin/babel src --watch --out-dir lib"
   },
   "tags": [
     "react",

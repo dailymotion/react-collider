@@ -45,6 +45,7 @@ export default class Head extends React.Component {
                 <title>{this.state.title}</title>
                 {metas}
                 {links}
+                <meta charSet="utf-8" />
             </head>
         )
     }

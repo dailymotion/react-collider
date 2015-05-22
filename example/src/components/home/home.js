@@ -3,12 +3,12 @@ import VideoPreview from './../video/preview'
 import provider from 'react-collider/dataProvider'
 
 export default class Home extends React.Component {
-    static getIds() {
-        return 'x2mb4y5,+x2mb373,+x2mmd5u'
+    static expose() {
+        return 'Home'
     }
     static fetchData() {
-        var url = 'https://api.dailymotion.com/videos?fields=id,title,thumbnail_240_url&languages=en&ids=' + Home.getIds()
-        return provider(this, url, {once: true})
+        var url = 'https://api.dailymotion.com/videos?fields=id,title,thumbnail_240_url&languages=en&limit=5'
+        return provider(Home.expose(), url, {once: true})
     }
     componentWillMount() {
         this.getVideosList((data) => this.setState({videos: data}))

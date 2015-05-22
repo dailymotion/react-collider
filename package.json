@@ -1,6 +1,6 @@
 {
   "name": "react-collider",
-  "version": "1.8.7",
+  "version": "1.9.0",
   "description": "Express middleware for isomorphic express + react apps",
   "main": "index.js",
   "repository": {

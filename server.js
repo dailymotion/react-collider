@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = require('./lib/reactCollider')
+module.exports = require('./lib/server')

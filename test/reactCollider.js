@@ -1,74 +1,70 @@
-var expect   = require('chai').expect,
-    http     = require('http'),
-    request  = require('supertest'),
-    collider = require('../server'),
-    routes   = require('./routing')
+var expect    = require('chai').expect,
+    routes    = require('./routing'),
+    Promise   = require('bluebird'),
+    collider  = require('..')
 
-describe('React Collider', function() {
-    var server
-
-    before(function() {
-        server = createServer()
-    })
-
-    it('should export a server function', function() {
+describe('Run Router', function() {
+    it('should export a function', function() {
         expect(collider).to.be.a('function')
     })
 
-    it('should render a page with no data', function(done) {
-        request(server)
-        .get('/')
-        .expect(function(res) {
-            expect(res.text).to.have.string('Homepage')
+    it('should return an handler and an object', function(done) {
+        collider(routes, '/', null, function(Handler, data) {
+            expect(Handler).to.be.a('function')
+            expect(data).to.be.a('object')
+            done()
         })
-        .end(done)
     })
 
-    it('should render another page with no data', function(done) {
-        request(server)
-        .get('/page')
-        .expect(200)
-        .expect(function(res) {
-            expect(res.text).to.have.string('Other Page')
+    it('should return an object with components as keys and data - Video', function(done) {
+        collider(routes, '/', null, function(Handler, data) {
+            expect(data).to.have.all.keys('Sidebar', 'HomeContent')
+            done()
         })
-        .end(done)
     })
 
-    it('should render a page with data', function(done) {
-        request(server)
-        .get('/video')
-        .expect(200)
-        .expect(function(res) {
-            expect(res.text).to.have.string('Cool video with kitten')
+    it('should return an object with components as keys and data - Home', function(done) {
+        collider(routes, '/video', null, function(Handler, data) {
+            expect(data).to.have.all.keys('Sidebar', 'Video')
+            done()
         })
-        .end(done)
     })
 
-    it('should fetch data for the router main handler children', function(done) {
-        request(server)
-        .get('/')
-        .expect(200)
-        .expect(function(res) {
-            expect(res.text).to.have.string('Sidebar content')
+    it('should get the params', function(done) {
+        collider(routes, '/user/1', null, function(Handler, data) {
+            expect(data).to.have.all.keys('Sidebar', 'User')
+            expect(data.User.user).to.equal('1')
+            done()
         })
-        .end(done)
-    })
-
-    it('should fetch data for the routes handler children', function(done) {
-        request(server)
-        .get('/')
-        .expect(200)
-        .expect(function(res) {
-            expect(res.text).to.have.string('Home children content')
-        })
-        .end(done)
     })
 })
 
-function createServer() {
-    var reactCollider = collider(routes)
+describe('Run Router with custom fetch handler', function() {
+    it('should run a custom fetch handler with an array of components', function(done) {
+        var customFetchHandler = function(components) {
+            return new Promise(function(resolve) {
+                expect(components).to.be.a('array')
+                expect(components.length).to.equal(2)
+                expect(components[0]).to.be.a('function')
+                resolve({})
+            })
+        }
 
-    return http.createServer(function(req, res) {
-        reactCollider(req, res)
+        collider(routes, '/', customFetchHandler, function() {
+            done()
+        })
     })
-}
+
+    it('should return an object corresponding to what the fetch handler returns', function(done) {
+        var customFetchHandler = function(components) {
+            return new Promise(function(resolve) {
+                resolve({customData: 'custom-data'})
+            })
+        }
+
+        collider(routes, '/', customFetchHandler, function(Handler, data) {
+            expect(data.customData).to.equal('custom-data')
+            done()
+        })
+    })
+})

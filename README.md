@@ -152,7 +152,44 @@ import routes   from './routing'
 var url = '/video'
 
 // simply provide your routes and the url
-collider(routes, url, (Handler, data) => {
+collider(routes, url, null, (Handler, data) => {
     var page = React.renderToString(React.createElement(Handler, {data: data}))
 })
 ```
+
+## Custom data fetching
+
+By default the module runs every `fetchData` methods of the components. If you need to handle yourself the data fetching you can pass a custom module that will receive an array of components needing to fetch data. It must return a promise.
+
+You can use a custom fetch handler for server as well as client side. You can obviously choose to use a custom fetch handler server side but not client side (or the opposite), or a different one.
+
+```javascript
+var routes   = require('./routing'),
+    customFetchHandler = require('./fetch-handler')
+
+// server side
+app.use(collider(routes), {fetch: customFetchHandler})
+
+// or client side
+collider(routes, {fetch: customFetchHandler})
+```
+
+```javascript
+// Custom fetch handler
+var Promise = require('bluebird')
+
+module.exports = function fetchHandler(components, params) {
+    return new Promise(function(resolve) {
+        var dataSet = {}
+
+        components.forEach(function(component) {
+            // handle the data fetching the way you want
+            // component.fetchData(params)
+        })
+
+        resolve(dataSet)
+    })
+}
+```
+
+You will be able to handle the components the way you want. Check out the [default fetch handler](https://github.com/dailymotion/react-collider/blob/master/lib/defaultFetchHandler.js) to see an example.

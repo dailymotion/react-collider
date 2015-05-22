@@ -1,5 +1,4 @@
-var assert   = require('chai').assert,
-    expect   = require('chai').expect,
+var expect   = require('chai').expect,
     React    = require('react'),
     provider = require('../dataProvider')
 

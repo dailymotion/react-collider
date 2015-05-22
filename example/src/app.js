@@ -1,4 +1,4 @@
-import {client as collider} from 'react-collider'
+import collider from 'react-collider/client'
 import routes from './routing'
 
 collider(routes)

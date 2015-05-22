@@ -1,7 +1,7 @@
 var expect    = require('chai').expect,
     routes    = require('./routing'),
-    runRouter = require('..').collider,
-    Promise   = require('bluebird')
+    Promise   = require('bluebird'),
+    runRouter = require('..')
 
 describe('Run Router', function() {
     it('should export a function', function() {
@@ -29,6 +29,14 @@ describe('Run Router', function() {
             done()
         })
     })
+
+    it('should get the params', function(done) {
+        runRouter(routes, '/user/1', null, function(Handler, data) {
+            expect(data).to.have.all.keys('Sidebar', 'User')
+            expect(data.User.user).to.equal('1')
+            done()
+        })
+    })
 })
 
 describe('Run Router with custom fetch handler', function() {
@@ -38,12 +46,13 @@ describe('Run Router with custom fetch handler', function() {
                 expect(components).to.be.a('array')
                 expect(components.length).to.equal(2)
                 expect(components[0]).to.be.a('function')
-                done()
                 resolve({})
             })
         }
 
-        runRouter(routes, '/', customFetchHandler, function() {})
+        runRouter(routes, '/', customFetchHandler, function() {
+            done()
+        })
     })
 
     it('should return an object corresponding to what the fetch handler returns', function(done) {

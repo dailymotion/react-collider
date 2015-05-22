@@ -1,6 +1,6 @@
 import React from 'react'
 import VideoPreview from './../video/preview'
-import {dataProvider as provider} from 'react-collider'
+import provider from 'react-collider/dataProvider'
 
 export default class Home extends React.Component {
     static getIds() {

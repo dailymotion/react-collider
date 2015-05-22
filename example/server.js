@@ -4,7 +4,7 @@ nodejsx.install()
 
 import express from 'express'
 import path    from 'path'
-import {server as collider} from 'react-collider'
+import collider from 'react-collider/server'
 import routes from './src/routing'
 
 var server = express(),

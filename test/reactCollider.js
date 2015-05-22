@@ -1,7 +1,7 @@
 var expect   = require('chai').expect,
     http     = require('http'),
     request  = require('supertest'),
-    collider = require('..'),
+    collider = require('../server'),
     routes   = require('./routing')
 
 describe('React Collider', function() {
@@ -12,15 +12,7 @@ describe('React Collider', function() {
     })
 
     it('should export a server function', function() {
-        expect(collider.server).to.be.a('function')
-    })
-
-    it('should export a client function', function() {
-        expect(collider.client).to.be.a('function')
-    })
-
-    it('should export a collider function', function() {
-        expect(collider.collider).to.be.a('function')
+        expect(collider).to.be.a('function')
     })
 
     it('should render a page with no data', function(done) {
@@ -74,7 +66,7 @@ describe('React Collider', function() {
 })
 
 function createServer() {
-    var reactCollider = collider.server(routes)
+    var reactCollider = collider(routes)
 
     return http.createServer(function(req, res) {
         reactCollider(req, res)

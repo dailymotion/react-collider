@@ -3,7 +3,7 @@ import Promise from 'bluebird'
 import {merge} from 'ramda'
 
 const defaultOptions = {
-    once: false,
+    once: true,
     forceFetch: false,
     set: false
 }

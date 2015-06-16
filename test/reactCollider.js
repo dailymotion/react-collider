@@ -16,24 +16,24 @@ describe('React Collider', function() {
         })
     })
 
-    it('should return an object with components as keys and data - Video', function(done) {
+    it('should return an object with components as keys and data - Home', function(done) {
         collider(routes, '/', null, function(Handler, data) {
-            expect(data).to.have.all.keys('sidebar', 'home-content')
+            expect(data).to.have.all.keys('sidebar-users', 'sidebar-channels', 'HomeContent')
             done()
         })
     })
 
-    it('should return an object with components as keys and data - Home', function(done) {
+    it('should return an object with components as keys and data - Video', function(done) {
         collider(routes, '/video', null, function(Handler, data) {
-            expect(data).to.have.all.keys('sidebar', 'video')
+            expect(data).to.have.all.keys('sidebar-users', 'sidebar-channels', 'video')
             done()
         })
     })
 
     it('should get the params', function(done) {
         collider(routes, '/user/1', null, function(Handler, data) {
-            expect(data).to.have.all.keys('sidebar', 'User')
-            expect(data.User.user).to.equal('1')
+            expect(data).to.have.all.keys('sidebar-users', 'sidebar-channels', 'user')
+            expect(data.user.username).to.equal('romainberger')
             done()
         })
     })

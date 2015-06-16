@@ -5,27 +5,23 @@ var React = require('react'),
 
 var Sidebar = React.createClass({
     statics: {
-        expose: function() {
-            return 'sidebar'
-        },
-        fetchData: function() {
-            return new Promise(function(resolve) {
-                fs.readFile(path.join(__dirname, 'fixtures.json'), 'utf-8', function(err, data) {
-                    resolve(JSON.parse(data).sidebarContent)
-                })
-            })
+        fetchData: function(params) {
+            return [
+                {
+                    expose: 'sidebar-users',
+                    url: 'https://api.dailymotion.com/users?fields=username&ids=x1d6bdd'
+                },
+                {
+                    expose: 'sidebar-channels',
+                    url: 'https://api.dailymotion.com/channels'
+                }
+            ]
         }
-    },
-    componentWillMount: function() {
-        this.setState({data: this.props.data})
-    },
-    getSidebarContent: function() {
-        return this.state.data ? this.state.data : ''
     },
     render: function() {
         return (
             React.createElement('div', null,
-                React.createElement('div', null, this.getSidebarContent())
+                React.createElement('div', null, this.props.data['sidebar-users'].list[0].username)
             )
         )
     }

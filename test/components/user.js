@@ -7,17 +7,12 @@ var User = React.createClass({
     displayName: 'User',
     statics: {
         fetchData: function(params) {
-            return new Promise(function(resolve) {
-                resolve({user: params.id})
-            })
+            return {
+                expose: 'user',
+                url: 'https://api.dailymotion.com/user/romainberger?fields=username'
+            }
         }
     },
-    // componentWillMount: function() {
-    //     this.setState({video: this.props.data.Video})
-    // },
-    // getVideoTitle: function() {
-    //     return this.state.video ? this.state.video : ''
-    // },
     render: function() {
         return (
             React.createElement('div', null)

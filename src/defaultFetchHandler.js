@@ -1,5 +1,6 @@
 import Promise from 'bluebird'
 import {contains} from 'ramda'
+import provider from './dataProvider'
 
 export default function defaultFetchHandler(components, params) {
     return new Promise(function(resolve) {
@@ -8,12 +9,16 @@ export default function defaultFetchHandler(components, params) {
 
         components.forEach(function(component) {
             if (typeof component.fetchData === 'function') {
-                var displayName = component.displayName || component.name,
-                    name = typeof component.expose === 'function' ? component.expose(params) : displayName
-                if (!contains(name)(components)) {
-                    componentsName.push(name)
-                    fetches.push(component.fetchData(params))
+                var componentFetches = component.fetchData(params)
+                if (!Array.isArray(componentFetches)) {
+                    componentFetches = [componentFetches]
                 }
+
+                componentFetches.forEach(function(fetch) {
+                    componentsName.push(fetch.expose)
+                    let params = typeof fetch.params === 'object' ? fetch.params : {}
+                    fetches.push(provider(fetch.expose, fetch.url, params))
+                })
             }
         })
 

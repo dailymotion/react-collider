@@ -39,7 +39,7 @@ describe('Server', function() {
         .get('/video')
         .expect(200)
         .expect(function(res) {
-            expect(res.text).to.have.string('Cool video with kitten')
+            expect(res.text).to.have.string('Reactjs test - chat webapp')
         })
         .end(done)
     })
@@ -49,7 +49,7 @@ describe('Server', function() {
         .get('/')
         .expect(200)
         .expect(function(res) {
-            expect(res.text).to.have.string('Sidebar content')
+            expect(res.text).to.have.string('romainberger')
         })
         .end(done)
     })
@@ -59,7 +59,7 @@ describe('Server', function() {
         .get('/')
         .expect(200)
         .expect(function(res) {
-            expect(res.text).to.have.string('Home children content')
+            expect(res.text).to.have.string('Reactjs test - chat webapp')
         })
         .end(done)
     })

@@ -14,14 +14,11 @@ var App = React.createClass({
             return [Sidebar]
         }
     },
-    getData: function() {
-        return this.props.data || {}
-    },
     render: function() {
         return (
             React.createElement('div', null,
-                React.createElement(Sidebar, {data: this.getData()}),
-                React.createElement(RouteHandler, {data: this.getData()})
+                React.createElement(Sidebar, {data: this.props.data}),
+                React.createElement(RouteHandler, {data: this.props.data})
             )
         )
     }

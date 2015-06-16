@@ -5,27 +5,17 @@ var React = require('react'),
 
 var Video = React.createClass({
     statics: {
-        expose: function() {
-            return 'video'
-        },
         fetchData: function() {
-            return new Promise(function(resolve) {
-                fs.readFile(path.join(__dirname, 'fixtures.json'), 'utf-8', function(err, data) {
-                    resolve(JSON.parse(data).title)
-                })
-            })
+            return {
+                expose: 'video',
+                url: 'https://api.dailymotion.com/video/x1vcexn?fields=title'
+            }
         }
-    },
-    componentWillMount: function() {
-        this.setState({video: this.props.data.Video})
-    },
-    getVideoTitle: function() {
-        return this.state.video ? this.state.video : ''
     },
     render: function() {
         return (
             React.createElement('div', null,
-                React.createElement('h1', null, this.getVideoTitle())
+                React.createElement('h1', null, this.props.data.video.title)
             )
         )
     }

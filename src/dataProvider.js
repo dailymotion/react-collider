@@ -26,6 +26,7 @@ export default function dataProvider(expose, url, options) {
             .end(function(err, res) {
                 if (err) {
                     console.error(err)
+                    console.log(url)
                     resolve('')
                 }
                 else {

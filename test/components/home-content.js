@@ -6,27 +6,17 @@ var React = require('react'),
 var HomeContent = React.createClass({
     displayName: 'HomeContent',
     statics: {
-        expose: function() {
-            return 'home-content'
-        },
         fetchData: function() {
-            return new Promise(function(resolve) {
-                fs.readFile(path.join(__dirname, 'fixtures.json'), 'utf-8', function(err, data) {
-                    resolve(JSON.parse(data).homeContent)
-                })
-            })
+            return {
+                expose: 'HomeContent',
+                url: 'https://api.dailymotion.com/video/x1vcexn?fields=title'
+            }
         }
-    },
-    componentWillMount: function() {
-        this.setState({data: this.props.data})
-    },
-    getHomeContent: function() {
-        return this.state.data ? this.state.data : ''
     },
     render: function() {
         return (
             React.createElement('div', null,
-                React.createElement('div', null, this.getHomeContent())
+                React.createElement('div', null, this.props.data.HomeContent.title)
             )
         )
     }

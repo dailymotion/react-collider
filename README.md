@@ -124,7 +124,7 @@ The `dataProvider` module allows data fetching from a url or from the initial da
 - `expose` String. The name under which the data will be available
 - `url` Url to call
 - `options` Object. Available options:
-    - `once`: Removes the data from the local variable after use. This means the next time you call the same data it will fetch them remotely. Default to false.
+    - `once`: Removes the data from the local variable after use. This means the next time you call the same data it will fetch them remotely. Default to true.
     - `forceFetch`: Fetches the data remotely even if the data are available locally. Default to false.
     - `set`: Sets the data locally after fetching them remotely. The next time you need them they will be taken locally (unless you use the `forceFetch` option). Default to false.
 

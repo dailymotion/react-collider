@@ -1,4 +1,3 @@
-import parseurl from 'parseurl'
 import React from'react'
 import Router from 'react-router'
 import {merge} from 'ramda'
@@ -29,17 +28,9 @@ export default function server(routes, options) {
           return next()
         }
 
-        var originalUrl = parseurl.original(req),
-            reqPath = parseurl(req).pathname,
-            hasTrailingSlash = originalUrl.pathname[originalUrl.pathname.length - 1] === '/'
+        var perfInstance = performance(req.url)
 
-        if (reqPath === '/' && !hasTrailingSlash) {
-            reqPath = ''
-        }
-
-        var perfInstance = performance(reqPath)
-
-        collider(routes, reqPath, fetchHandler, function(Handler, data) {
+        collider(routes, req.url, fetchHandler, function(Handler, data) {
             returnResponse(res, Handler, data, perfInstance)
         })
     }

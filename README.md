@@ -63,23 +63,22 @@ collider(routes)
 
 ### Components
 
-If your component must fetch some data before being rendered, use a `fetchData` static method. It must return a promise. The component also has to have a `expose` static method to know under which name the data will be exposed. If no `expose` method is available, it will use the `displayName` of the component.
+If your component must fetch some data before being rendered, use a `fetchData` static method. It must return an object or an array of objects with expose, url and params keys. Expose is the name under which the data will be available.
 
-The `fetchData` and `expose` methods will receive an argument being the params [from the router](http://rackt.github.io/react-router/#getting-the-url-parameters).
+The `fetchData` method will receive an argument being the params [from the router](http://rackt.github.io/react-router/#getting-the-url-parameters).
 
 Example of a simple component:
 
 ```javascript
 export default class Home extends React.Component {
-    static expose(params) {
-        return `home-user-${params.id}`
-    }
     static fetchData(params) {
-        // returns a promise
-        return getHomeData({userId: params.id})
+        return {
+            expose: 'home-data',
+            url: `https://api.dailymotion.com/video/${params.videoId}`
+        }
     }
     render() {
-        var videos = getVideoList()
+        var videos = getVideoList(this.props.data['home-data'])
 
         return (
             <div>
@@ -132,11 +131,8 @@ The `dataProvider` module allows data fetching from a url or from the initial da
 import provider from 'react-collider/dataProvider'
 
 class Video extends React.Component {
-    static expose() {
-        return 'video'
-    }
-    static fetchData(params) {
-        return provider(Video.expose(), `https://api.dailymotion.com/video/${params.id}?fields=id,title`, {once: true})
+    componentDidMount() {
+        return provider('video', `https://api.dailymotion.com/video/${params.id}?fields=id,title`, {once: true})
     }
 }
 ```

@@ -132,7 +132,7 @@ import provider from 'react-collider/dataProvider'
 
 class Video extends React.Component {
     componentDidMount() {
-        return provider('video', `https://api.dailymotion.com/video/${params.id}?fields=id,title`, {once: true})
+        var data = provider('video', `https://api.dailymotion.com/video/${params.id}?fields=id,title`, {once: true})
     }
 }
 ```

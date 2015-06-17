@@ -3,18 +3,17 @@ import Player from './../player/player'
 import provider from 'react-collider/dataProvider'
 
 export default class Video extends React.Component {
-    static expose(params) {
-        return 'videoData'
-    }
     static fetchData(params) {
-        var url = `https://api.dailymotion.com/video/${params.id}?fields=id,title`
-        return provider(Video.expose(), url)
+        return {
+            expose: 'VideoData',
+            url: `https://api.dailymotion.com/video/${params.id}?fields=id,title`
+        }
     }
     render() {
         return (
             <div>
-                <h1>{this.props.data.videoData.title}</h1>
-                <Player id={this.props.data.videoData.id} />
+                <h1>{this.props.data.VideoData.title}</h1>
+                <Player id={this.props.data.VideoData.id} />
             </div>
         )
     }

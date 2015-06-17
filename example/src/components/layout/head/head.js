@@ -32,12 +32,11 @@ export default class Head extends React.Component {
         }
     }
     render() {
-        var i = 0,
-            metas = this.state.metas.map(function (data) {
-                return <MetaElement key={i++} {...data} />
+        var metas = this.state.metas.map(function (data, i) {
+                return <MetaElement key={i} {...data} />
             }),
-            links = this.state.links.map(function (data) {
-                return <LinkElement key={i++} {...data} />
+            links = this.state.links.map(function (data, i) {
+                return <LinkElement key={i} {...data} />
             })
 
         return (

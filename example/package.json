@@ -20,7 +20,7 @@
     "json-stable-stringify": "^1.0.0",
     "node-jsx": "^0.12.4",
     "react": "^0.13.1",
-    "react-collider": "^1.9.0",
+    "react-collider": "dailymotion/react-collider",
     "react-router": "^0.13.2",
     "reactify": "^1.1.0",
     "superagent": "^1.1.0"

@@ -26,7 +26,7 @@ export default class Html extends React.Component {
                     <Header />
                     <div className="container">
                         <div className="row">
-                            <Sidebar className="col-lg-2" data={this.props.data.sidebar} />
+                            <Sidebar className="col-lg-2" data={this.props.data.Sidebar} />
                             <div className="col-lg-10">
                                 <RouteHandler data={this.props.data} />
                             </div>

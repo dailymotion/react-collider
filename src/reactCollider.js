@@ -42,6 +42,7 @@ export default function reactCollider(routes, routerArg, fetchHandler, cb) {
 
         if (components.length) {
             fetchHandler(components, params).then(function(data) {
+                components = []
                 cb(Handler, data)
             })
         }

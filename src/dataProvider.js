@@ -21,13 +21,19 @@ export default function dataProvider(expose, url, options) {
         }
         else {
             request('GET', url)
+            .timeout(2000)
             .send()
             .set('Accept', 'application/json')
             .end(function(err, res) {
                 if (err) {
                     console.error(err)
-                    console.log(url)
-                    resolve('')
+                    resolve({
+                        error: {
+                            code: 'timeout',
+                            message: `This request has timed-out: ${url}`,
+                            type: 'timeout'
+                        }
+                    })
                 }
                 else {
                     if (options.set) {

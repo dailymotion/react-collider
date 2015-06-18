@@ -26,14 +26,18 @@ export default function dataProvider(expose, url, options) {
             .set('Accept', 'application/json')
             .end(function(err, res) {
                 if (err) {
-                    console.error(err)
-                    resolve({
-                        error: {
-                            code: 'timeout',
-                            message: `This request has timed-out: ${url}`,
-                            type: 'timeout'
-                        }
-                    })
+                    if (err.timeout) {
+                        resolve({
+                            error: {
+                                code: 'timeout',
+                                message: `This request has timed-out: ${url}`,
+                                type: 'timeout'
+                            }
+                        })
+                    }
+                    else {
+                        resolve(err.response.body.error)
+                    }
                 }
                 else {
                     if (options.set) {

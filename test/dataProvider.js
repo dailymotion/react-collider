@@ -87,8 +87,8 @@ describe('Data Provider', function() {
 
     it('should return an API error', function(done) {
         provider('error', 'https://api.dailymotion.com/error').then(function(data) {
-            expect(data).to.have.all.keys('code', 'message', 'type')
-            expect(data.code).to.equal(501)
+            expect(data).to.have.key('error')
+            expect(data.error.code).to.equal(501)
             done()
         })
     })

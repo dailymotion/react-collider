@@ -36,7 +36,7 @@ export default function dataProvider(expose, url, options) {
                         })
                     }
                     else {
-                        resolve(err.response.body.error)
+                        resolve(err.response.body)
                     }
                 }
                 else {

@@ -18,21 +18,21 @@ describe('React Collider', function() {
 
     it('should return an object with components as keys and data - Home', function(done) {
         collider(routes, '/', null, function(Handler, data) {
-            expect(data).to.have.all.keys('sidebar-users', 'sidebar-channels', 'HomeContent')
+            expect(data).to.have.all.keys('sidebar-users', 'sidebar-channels', 'user-card', 'HomeContent')
             done()
         })
     })
 
     it('should return an object with components as keys and data - Video', function(done) {
         collider(routes, '/video', null, function(Handler, data) {
-            expect(data).to.have.all.keys('sidebar-users', 'sidebar-channels', 'video')
+            expect(data).to.have.all.keys('sidebar-users', 'sidebar-channels', 'user-card', 'video')
             done()
         })
     })
 
     it('should get the params', function(done) {
         collider(routes, '/user/1', null, function(Handler, data) {
-            expect(data).to.have.all.keys('sidebar-users', 'sidebar-channels', 'user')
+            expect(data).to.have.all.keys('sidebar-users', 'sidebar-channels', 'user-card', 'user')
             expect(data.user.username).to.equal('romainberger')
             done()
         })
@@ -44,7 +44,7 @@ describe('Run Router with custom fetch handler', function() {
         var customFetchHandler = function(components) {
             return new Promise(function(resolve) {
                 expect(components).to.be.a('array')
-                expect(components.length).to.equal(2)
+                expect(components.length).to.equal(3)
                 expect(components[0]).to.be.a('function')
                 resolve({})
             })

@@ -4,7 +4,6 @@ var React = require('react'),
     Promise = require('bluebird')
 
 var User = React.createClass({
-    displayName: 'User',
     statics: {
         fetchData: function(params) {
             return {

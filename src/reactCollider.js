@@ -26,6 +26,7 @@ export default function reactCollider(routes, routerArg, fetchHandler, cb) {
     var parseDependencies = function parseDependencies(component) {
         if (typeof component.getDependencies === 'function') {
             component.getDependencies().forEach(function(dep) {
+                parseDependencies(dep)
                 addComponent(dep)
             })
         }
